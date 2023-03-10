@@ -76,6 +76,7 @@ resource-manager                           X   -        -              -        
 In the payloads folder, load the pre-slice instantiation files listed in order (starting with 0a to 0f).
 These files can also be customized to satisfied to satisfy your systems's requirements
 
+```
 These files accomplish the following:
 0a_odn_policies.cli- pre-load ODN templates into the SR-TE CFP.
 0b_resource_pools.cli- pre-loaded all resource pools required for coloring, evi's, L2 and L3 RTs, Y1731, etc
@@ -83,6 +84,7 @@ These files accomplish the following:
 0d_pm-profiles.cli- pre-load performance management pools for SR-PM
 0e_y1731.cli- pre-load Y1731-profile configs
 0f_slicing-pre-configs.cli- pre-load Slicing catalog
+```
 
 #### Sample Payloads with use-cases
 
