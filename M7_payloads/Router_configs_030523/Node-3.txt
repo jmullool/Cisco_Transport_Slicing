@@ -1,0 +1,441 @@
+!! IOS XR Configuration 7.3.2
+!! Last configuration change at Sun Mar  5 16:16:13 2023 by admin
+!
+hostname Node-3
+domain name-server 161.44.124.122
+username admin
+ group root-lr
+ group cisco-support
+ secret 10 $6$pyIto1DJCxZHDo1.$1E5vTdV3KqmtcThGyBT9.HyV.FwQp8oruRDzhjG9aHCSTDlOgyyUz9Mkt4ifDASKeq4oBy02EMgvcZOKh9ZoF0
+!
+aaa authentication login LOCAL local
+grpc
+ port 57400
+ no-tls
+ max-streams 128
+ max-streams-per-user 128
+ address-family ipv4
+!
+telemetry model-driven
+!
+line template vty
+ login authentication LOCAL
+ transport input all
+ transport output all
+!
+line default
+ login authentication LOCAL
+ transport input all
+ transport output all
+!
+vty-pool default 0 20
+http client source-interface ipv4 MgmtEth0/RP0/CPU0/0
+snmp-server ifindex persist
+snmp-server host 10.87.9.217 traps version 2c cisco udp-port 1062
+snmp-server community public RW
+snmp-server traps snmp linkup
+snmp-server traps snmp linkdown
+snmp-server trap-source MgmtEth0/RP0/CPU0/0
+ntp
+ server 198.18.128.1
+!
+call-home
+ service active
+ contact smart-licensing
+ source-interface MgmtEth0/RP0/CPU0/0
+ profile CiscoTAC-1
+  active
+  destination transport-method http
+ !
+!
+netconf-yang agent
+ ssh
+!
+ipv4 access-list host-only
+ 10 permit ipv4 any host 10.87.9.174
+!
+class-map match-any EXP1
+ match qos-group 1 
+ end-class-map
+! 
+class-map match-any EXP3
+ match qos-group 3 
+ end-class-map
+! 
+class-map match-any EXP5
+ match qos-group 5 
+ end-class-map
+! 
+class-map match-any Video
+ match dscp 24 24-38 
+ end-class-map
+! 
+class-map match-any PRIORITY
+ match dscp ef 
+ end-class-map
+! 
+class-map match-any VIDEO_L2
+ match mpls experimental topmost 3 
+ match cos 3 4 
+ end-class-map
+! 
+class-map match-any Best_Effort
+ match dscp 0 
+ end-class-map
+! 
+class-map match-any PRIORITY_L2
+ match mpls experimental topmost 5 
+ match cos 5 
+ end-class-map
+! 
+class-map match-any Business_Data
+ match dscp 10-23 
+ end-class-map
+! 
+class-map match-any Best_Effort_L2
+ match mpls experimental topmost 0 
+ match cos 0 
+ end-class-map
+! 
+class-map match-any Business_Data_L2
+ match mpls experimental topmost 1 
+ match cos 1 2 
+ end-class-map
+! 
+policy-map egress_core
+ class EXP1
+  set mpls experimental imposition 1
+ ! 
+ class EXP3
+  set mpls experimental imposition 3
+ ! 
+ class EXP5
+  set mpls experimental imposition 5
+ ! 
+ class class-default
+  set mpls experimental imposition 0
+ ! 
+ end-policy-map
+! 
+policy-map ingress_COS1
+ class class-default
+  set qos-group 1
+ ! 
+ end-policy-map
+! 
+policy-map ingress_COS3
+ class class-default
+  set qos-group 3
+ ! 
+ end-policy-map
+! 
+policy-map ingress_COS5
+ class class-default
+  set qos-group 5
+ ! 
+ end-policy-map
+! 
+policy-map ingress_TRUST
+ class Best_Effort
+  set qos-group 0
+ ! 
+ class PRIORITY
+  set qos-group 5
+ ! 
+ class Business_Data
+  set qos-group 1
+ ! 
+ class Video
+  set qos-group 3
+ ! 
+ class class-default
+ ! 
+ end-policy-map
+! 
+policy-map per-flow-test
+ class PRIORITY
+  set mpls experimental imposition 5
+ ! 
+ class Best_Effort
+  set mpls experimental imposition 0
+ ! 
+ class class-default
+ ! 
+ end-policy-map
+! 
+policy-map ingress_UNTRUST
+ class class-default
+  set qos-group 0
+ ! 
+ end-policy-map
+! 
+policy-map ingress_TRUST_L2
+ class PRIORITY_L2
+  set qos-group 5
+ ! 
+ class Business_Data_L2
+  set qos-group 1
+ ! 
+ class VIDEO_L2
+  set qos-group 3
+ ! 
+ class Best_Effort_L2
+  set qos-group 0
+ ! 
+ class class-default
+ ! 
+ end-policy-map
+! 
+policy-map Egress-LowLatency
+ class class-default
+  bandwidth remaining percent 100 
+ ! 
+ end-policy-map
+! 
+policy-map Egress-High_Bw_Apps
+ class class-default
+  bandwidth remaining percent 100 
+ ! 
+ end-policy-map
+! 
+interface Loopback0
+ ipv4 address 192.168.255.4 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.87.9.174 255.255.255.0
+ ipv4 unreachables disable
+ ipv4 access-group host-only ingress
+!
+interface GigabitEthernet0/0/0/0
+ description Connected to Node-7 Gig0/0/0/0
+ ipv4 address 10.3.4.2 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ description Connected to Node-8 Gig0/0/0/1
+ ipv4 address 10.2.4.2 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ description Connected to Node-1 Gig0/0/0/2
+ ipv4 address 10.1.4.2 255.255.255.0
+!
+interface GigabitEthernet0/0/0/3
+ description Connected to Node-6 Gig0/0/0/3
+ ipv4 address 10.4.6.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ description Connected to Node-4 TenGig0/0/0/0.864
+ ipv4 address 10.4.22.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/5
+ shutdown
+!
+route-policy SET_COLOR_EVPN_VPWS
+  pass
+end-policy
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.87.9.1
+ !
+!
+router isis SPNAC
+ is-type level-2-only
+ net 47.0000.0000.0004.00
+ nsf ietf
+ log adjacency changes
+ lsp-gen-interval maximum-wait 5000 initial-wait 1 secondary-wait 50
+ lsp-refresh-interval 65000
+ max-lsp-lifetime 65535
+ affinity-map North bit-position 1
+ affinity-map South bit-position 2
+ affinity-map ENCRYPT bit-position 0
+ flex-algo 128
+  metric-type delay
+  advertise-definition
+ !
+ flex-algo 129
+  advertise-definition
+  affinity include-all ENCRYPT
+ !
+ flex-algo 131
+  advertise-definition
+  affinity include-all North
+ !
+ flex-algo 132
+  advertise-definition
+  affinity include-all South
+ !
+ address-family ipv4 unicast
+  metric-style wide
+  metric 10000
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  spf-interval maximum-wait 1000 initial-wait 1 secondary-wait 50
+  segment-routing mpls sr-prefer
+ !
+ interface Loopback0
+  passive
+  circuit-type level-2-only
+  address-family ipv4 unicast
+   prefix-sid index 103
+   prefix-sid algorithm 128 absolute 16803
+   prefix-sid algorithm 129 absolute 16903
+   prefix-sid algorithm 131 absolute 17103
+   prefix-sid algorithm 132 absolute 17203
+  !
+ !
+ interface GigabitEthernet0/0/0/0
+  suppressed
+  circuit-type level-2-only
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+ interface GigabitEthernet0/0/0/1
+  suppressed
+  circuit-type level-2-only
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 5000
+  !
+ !
+ interface GigabitEthernet0/0/0/2
+  suppressed
+  circuit-type level-2-only
+  affinity flex-algo ENCRYPT North
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+ interface GigabitEthernet0/0/0/3
+  suppressed
+  circuit-type level-2-only
+  affinity flex-algo ENCRYPT North
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+ interface GigabitEthernet0/0/0/4
+  suppressed
+  circuit-type level-2-only
+  affinity flex-algo North
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+!
+snmp-server traps isis all
+router bgp 64001
+ bgp router-id 192.168.255.4
+ address-family vpnv4 unicast
+ !
+ address-family l2vpn evpn
+ !
+ neighbor 192.168.255.8
+  remote-as 64001
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+  address-family l2vpn evpn
+   route-policy SET_COLOR_EVPN_VPWS out
+  !
+ !
+!
+mpls oam
+!
+segment-routing
+ traffic-eng
+  on-demand color 130
+   dynamic
+    pcep
+    !
+    metric
+     type igp
+    !
+    bounds
+     cumulative
+      type latency 10
+     !
+    !
+   !
+  !
+  on-demand color 131
+   dynamic
+    pcep
+    !
+    metric
+     type igp
+    !
+    bounds
+     cumulative
+      type latency 7
+     !
+    !
+   !
+  !
+  on-demand color 500
+   per-flow
+    forward-class 0 color 100
+    forward-class 1 color 100
+    forward-class 5 color 110
+    forward-class default 0
+   !
+  !
+  pcc
+   source-address ipv4 192.168.255.4
+   pce address ipv4 192.168.255.7
+   !
+   report-all
+  !
+ !
+!
+netconf agent tty
+!
+crypto ca trustpoint Trustpool
+ crl optional
+!
+ssh server rate-limit 600
+ssh server session-limit 110
+ssh server v2
+performance-measurement
+ interface GigabitEthernet0/0/0/0
+  delay-measurement
+   advertise-delay 1
+  !
+ !
+ interface GigabitEthernet0/0/0/1
+  delay-measurement
+   advertise-delay 10
+  !
+ !
+ interface GigabitEthernet0/0/0/2
+  delay-measurement
+   advertise-delay 5
+  !
+ !
+ interface GigabitEthernet0/0/0/3
+  delay-measurement
+   advertise-delay 1
+  !
+ !
+ interface GigabitEthernet0/0/0/4
+  delay-measurement
+   advertise-delay 1
+  !
+ !
+!
+end

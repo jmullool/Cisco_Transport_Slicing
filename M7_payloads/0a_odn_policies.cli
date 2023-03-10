@@ -1,0 +1,58 @@
+cisco-sr-te-cfp:sr-te odn odn-template BWOD_1G
+ color     121
+ bandwidth 1000000
+ dynamic pce
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template BWOD_500M
+ color     122
+ bandwidth 500000
+ dynamic pce
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template BWOD_custom
+ color 120
+ dynamic pce
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template DSCP_Flow
+ color 500
+!
+cisco-sr-te-cfp:sr-te odn odn-template ENCRYPT
+ color 115
+ dynamic pce
+ dynamic flex-alg 129
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template URLLC
+ color 110
+ dynamic pce
+ dynamic flex-alg 128
+!
+cisco-sr-te-cfp:sr-te odn odn-template eMBB
+ color 100
+ dynamic pce
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template eMBB_10ms
+ color 130
+ dynamic pce
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template eMBB_7ms
+ color 131
+ dynamic pce
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template Disjoint_North
+ color 116
+ dynamic pce
+ dynamic flex-alg 131
+ dynamic metric-type igp
+!
+cisco-sr-te-cfp:sr-te odn odn-template Disjoint_South
+ color 117
+ dynamic pce
+ dynamic flex-alg 132
+ dynamic metric-type igp
+!

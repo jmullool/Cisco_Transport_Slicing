@@ -1,0 +1,39 @@
+network-slice-services slice-service slice-L2p2p-Foo
+ service-tags tag-type service-tag-service
+  value [ L2 ]
+ !
+ service-tags tag-opaque nssai 
+  value [ 2-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ FOO ]
+ !
+ slo-sle-template eMBB 
+ sdps sdp 1
+  node-id Node-4 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group3
+  !
+  attachment-circuits attachment-circuit AC-1
+   ac-tp-id TenGigE0/0/0/10
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 422 ]
+   !
+  !
+ !
+ sdps sdp 2
+  node-id Node-5
+  service-match-criteria match-criterion 2
+   target-connection-group-id group3
+  !
+  attachment-circuits attachment-circuit AC-2
+   ac-tp-id TenGigE0/0/0/2
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 322 ]
+   !
+  !
+ !
+ connection-groups connection-group group3
+  connectivity-type point-to-point
+ !
+!

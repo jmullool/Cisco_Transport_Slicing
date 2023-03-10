@@ -1,0 +1,113 @@
+network-slice-services slice-service slice-L3-Ford
+ service-tags tag-type service-tag-service
+  value [ L3 ]
+ !
+ service-tags tag-opaque nssai
+ value [ 2-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ Ford ]
+ !
+ connection-groups connection-group group1
+   connectivity-type hub-spoke
+ !
+ slo-sle-template URLLC 
+ sdps sdp 1
+  node-id Node-4 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+   connection-group-sdp-role  spoke-role
+  !
+  attachment-circuits attachment-circuit ac1
+   ac-tp-id            TenGigE0/0/0/10
+   ac-ip-address       172.16.2.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 401 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.2.2 ]
+    bgp-attributes remote-as 65102
+   !
+  !
+ !
+ sdps sdp 2
+  node-id Node-5 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+   connection-group-sdp-role  hub-role
+  !
+  attachment-circuits attachment-circuit ac2
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.4.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 302 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.4.2 ]
+    bgp-attributes remote-as 65104
+   !
+  !
+ !
+ sdps sdp 3
+  node-id Node-2
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+   connection-group-sdp-role  spoke-role
+  !
+  attachment-circuits attachment-circuit ac3
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.3.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 601 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.3.2 ]
+    bgp-attributes remote-as 65103
+   !
+  !
+ !
+ isolation        service-isolation-dedicated
+ !
+ shared slice slice-L3-NAPA
+ !
+ shared single-sided-control true
+!
+network-slice-services slice-service slice-L3-NAPA
+ service-tags tag-type service-tag-service
+  value [ L3 ]
+ !
+ service-tags tag-opaque nssai
+ value [ 1-59876 2-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ NAPA ]
+ !
+!
+ slo-sle-template eMBB
+  sdps sdp 1
+  node-id Node-5
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac2
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.1.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 301 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.1.2 ]
+    bgp-attributes remote-as 65101
+   !
+  !
+ !
+ connection-groups connection-group group1
+   connectivity-type any-to-any
+ !
+ isolation        service-isolation-shared
+ !
+!

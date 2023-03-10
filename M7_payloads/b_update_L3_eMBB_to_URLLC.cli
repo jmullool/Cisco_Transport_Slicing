@@ -1,0 +1,3 @@
+network-slice-services slice-service slice-L3-ACME 
+ slo-sle-template URLLC
+!

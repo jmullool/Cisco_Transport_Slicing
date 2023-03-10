@@ -1,0 +1,546 @@
+devices device Node-8
+ config
+  admin
+   fpd auto-upgrade disable
+   disk_status_config minor 80
+   disk_status_config severe 90
+   disk_status_config critical 95
+   memory_status_config minor 80
+   memory_status_config severe 90
+   memory_status_config critical 95
+   memory_status_config recovery_enabled false
+   aaa admin-accounting enable false
+   aaa authentication users user admin
+    uid        9000
+    gid        100
+    password   $6$JpvAI0xC1ZnE7I0.$Z3Uo5tgI/GLcTatTag7cuCpHsWn83J/E47llKMs0EPkRQj7Hjy89L3dV5.1ulK/QP87G78.kxoRm4L3cn3SY1/
+    ssh_keydir /var/confd/homes/admin/.ssh
+    homedir    /var/confd/homes/admin
+   !
+   aaa authentication groups group aaa-r
+    gid   100
+    users %%__system_user__%%
+   exit
+   aaa authentication groups group admin-r
+    gid   100
+    users %%__system_user__%%
+   exit
+   aaa authentication groups group root-system
+    gid   100
+    users %%__system_user__%% admin
+   exit
+   aaa authorization cmdrules cmdrule 1
+    context *
+    command *
+    group   root-system
+    ops     rx
+    action  accept
+   exit
+   aaa authorization cmdrules cmdrule 2
+    context *
+    command "show running-config aaa"
+    group   aaa-r
+    ops     rx
+    action  accept
+   exit
+   aaa authorization cmdrules cmdrule 3
+    context *
+    command "show tech-support aaa"
+    group   aaa-r
+    ops     rx
+    action  accept
+   exit
+   aaa authorization cmdrules cmdrule 4
+    context *
+    command "show aaa"
+    group   aaa-r
+    ops     rx
+    action  accept
+   exit
+   aaa authorization cmdrules cmdrule 5
+    context *
+    command show
+    group   admin-r
+    ops     rx
+    action  accept
+   exit
+   aaa authorization datarules datarule 1
+    namespace *
+    context   *
+    keypath   *
+    group     root-system
+    ops       rwx
+    action    accept
+   !
+   aaa authorization datarules datarule 2
+    namespace *
+    context   *
+    keypath   /aaa
+    group     aaa-r
+    ops       r
+    action    accept
+   !
+   aaa authorization datarules datarule 3
+    namespace *
+    context   *
+    keypath   /aaa
+    group     admin-r
+    ops       rwx
+    action    reject
+   !
+   aaa authorization datarules datarule 4
+    namespace *
+    context   *
+    keypath   /
+    group     admin-r
+    ops       r
+    action    accept
+   !
+   confdConfig cli maxLineLength 0
+   confdConfig cli timezone local
+   confdConfig cli utcOffset 0
+   confdConfig cli idleTimeout 10m
+   confdConfig cli timestamp enabled
+   confdConfig cli timestamp clock24 true
+   confdConfig cli timestamp format "\d{l,4}\m{l,5}\D{l,3}\H{r,2,0}:\\t{r,2,0}:\s{r,2,0}.\c{l,3,0} UTC\u{l,1}\o{r,2,0}:\k{r,2,0}"
+   confdConfig cli historySave true
+   confdConfig cli allOrNothingLoad false
+   confdConfig cli enableLoadMergeLeafList false
+   sdr default-sdr
+    resources card-type LC
+     vm-cpu    1
+     vm-memory 1
+    exit
+    resources card-type RP
+     vm-cpu    1
+     vm-memory 2
+    exit
+    location all
+    exit
+   exit
+   service cli interactive enabled
+   vm memory admin 1
+   vm memory rp 7
+   vm memory lc 15
+   vm cpu assign 0-1/2-3
+   SNMP-COMMUNITY-MIB snmpCommunityTable snmpCommunityEntry public
+    snmpCommunityName            public
+    snmpCommunitySecurityName    public
+    snmpCommunityContextEngineID 80:00:61:81:05:01
+    snmpCommunityContextName     ""
+    snmpCommunityTransportTag    ""
+    snmpCommunityStorageType     permanent
+   !
+   SNMP-NOTIFICATION-MIB snmpNotifyTable snmpNotifyEntry std_v1_trap
+    snmpNotifyTag         std_v1_trap
+    snmpNotifyType        trap
+    snmpNotifyStorageType nonVolatile
+   !
+   SNMP-NOTIFICATION-MIB snmpNotifyTable snmpNotifyEntry std_v2_inform
+    snmpNotifyTag         std_v2_inform
+    snmpNotifyType        inform
+    snmpNotifyStorageType nonVolatile
+   !
+   SNMP-NOTIFICATION-MIB snmpNotifyTable snmpNotifyEntry std_v2_trap
+    snmpNotifyTag         std_v2_trap
+    snmpNotifyType        trap
+    snmpNotifyStorageType nonVolatile
+   !
+   SNMP-NOTIFICATION-MIB snmpNotifyTable snmpNotifyEntry std_v3_inform
+    snmpNotifyTag         std_v3_inform
+    snmpNotifyType        inform
+    snmpNotifyStorageType nonVolatile
+   !
+   SNMP-NOTIFICATION-MIB snmpNotifyTable snmpNotifyEntry std_v3_trap
+    snmpNotifyTag         std_v3_trap
+    snmpNotifyType        trap
+    snmpNotifyStorageType nonVolatile
+   !
+   SNMP-TARGET-MIB snmpTargetAddrTable snmpTargetAddrEntry "127.0.0.1 v1"
+    snmpTargetAddrTDomain     1.3.6.1.6.1.1
+    snmpTargetAddrTAddress    127.0.0.1.19.136
+    snmpTargetAddrTimeout     1500
+    snmpTargetAddrRetryCount  3
+    snmpTargetAddrTagList     "std_v1_trap std_trap std_v1_inform std_inform"
+    snmpTargetAddrParams      target_v1
+    snmpTargetAddrStorageType nonVolatile
+    snmpTargetAddrEngineID    ""
+    snmpTargetAddrTMask       ""
+    snmpTargetAddrMMS         2048
+    enabled
+   !
+   SNMP-TARGET-MIB snmpTargetAddrTable snmpTargetAddrEntry "127.0.0.1 v2"
+    snmpTargetAddrTDomain     1.3.6.1.6.1.1
+    snmpTargetAddrTAddress    127.0.0.1.23.112
+    snmpTargetAddrTimeout     1500
+    snmpTargetAddrRetryCount  3
+    snmpTargetAddrTagList     "std_v2_trap std_trap std_v2_inform std_inform"
+    snmpTargetAddrParams      target_v2
+    snmpTargetAddrStorageType nonVolatile
+    snmpTargetAddrEngineID    ""
+    snmpTargetAddrTMask       ""
+    snmpTargetAddrMMS         2048
+    enabled
+   !
+   SNMP-TARGET-MIB snmpTargetAddrTable snmpTargetAddrEntry "127.0.0.1 v3"
+    snmpTargetAddrTDomain     1.3.6.1.6.1.1
+    snmpTargetAddrTAddress    127.0.0.1.27.88
+    snmpTargetAddrTimeout     1500
+    snmpTargetAddrRetryCount  3
+    snmpTargetAddrTagList     "std_v3_trap std_trap"
+    snmpTargetAddrParams      trap_target_v3
+    snmpTargetAddrStorageType nonVolatile
+    snmpTargetAddrEngineID    ""
+    snmpTargetAddrTMask       ""
+    snmpTargetAddrMMS         2048
+    enabled
+   !
+   SNMP-TARGET-MIB snmpTargetAddrTable snmpTargetAddrEntry "127.0.0.1 v3.inform"
+    snmpTargetAddrTDomain     1.3.6.1.6.1.1
+    snmpTargetAddrTAddress    127.0.0.1.27.88
+    snmpTargetAddrTimeout     1500
+    snmpTargetAddrRetryCount  3
+    snmpTargetAddrTagList     "std_v3_inform std_inform"
+    snmpTargetAddrParams      inform_target_v3
+    snmpTargetAddrStorageType nonVolatile
+    snmpTargetAddrEngineID    80:00:1f:88:04:74:65:73:74:69:6e:67
+    snmpTargetAddrTMask       ""
+    snmpTargetAddrMMS         2048
+    enabled
+   !
+   SNMP-TARGET-MIB snmpTargetParamsTable snmpTargetParamsEntry inform_target_v3
+    snmpTargetParamsMPModel       3
+    snmpTargetParamsSecurityModel 3
+    snmpTargetParamsSecurityName  remote
+    snmpTargetParamsSecurityLevel noAuthNoPriv
+    snmpTargetParamsStorageType   nonVolatile
+   !
+   SNMP-TARGET-MIB snmpTargetParamsTable snmpTargetParamsEntry target_v1
+    snmpTargetParamsMPModel       0
+    snmpTargetParamsSecurityModel 1
+    snmpTargetParamsSecurityName  public
+    snmpTargetParamsSecurityLevel noAuthNoPriv
+    snmpTargetParamsStorageType   nonVolatile
+   !
+   SNMP-TARGET-MIB snmpTargetParamsTable snmpTargetParamsEntry target_v2
+    snmpTargetParamsMPModel       1
+    snmpTargetParamsSecurityModel 2
+    snmpTargetParamsSecurityName  public
+    snmpTargetParamsSecurityLevel noAuthNoPriv
+    snmpTargetParamsStorageType   nonVolatile
+   !
+   SNMP-TARGET-MIB snmpTargetParamsTable snmpTargetParamsEntry trap_target_v3
+    snmpTargetParamsMPModel       3
+    snmpTargetParamsSecurityModel 3
+    snmpTargetParamsSecurityName  public
+    snmpTargetParamsSecurityLevel noAuthNoPriv
+    snmpTargetParamsStorageType   nonVolatile
+   !
+   SNMP-USER-BASED-SM-MIB usmUserTable usmUserEntry 80:00:61:81:05:01 initial
+    usmUserSecurityName initial
+    usmUserAuthProtocol 1.3.6.1.6.3.10.1.1.1
+    usmUserPrivProtocol 1.3.6.1.6.3.10.1.2.1
+    usmUserStorageType  nonVolatile
+   !
+   SNMP-USER-BASED-SM-MIB usmUserTable usmUserEntry 80:00:61:81:05:01 initial_auth
+    usmUserSecurityName initial_auth
+    usmUserAuthProtocol 1.3.6.1.6.3.10.1.1.2
+    usmUserPrivProtocol 1.3.6.1.6.3.10.1.2.1
+    usmUserStorageType  nonVolatile
+    usmUserAuthKey      10:2c:bd:65:e3:eb:e2:16:0d:63:db:23:73:f3:17:b2
+   !
+   SNMP-USER-BASED-SM-MIB usmUserTable usmUserEntry 80:00:61:81:05:01 initial_authPriv
+    usmUserSecurityName initial_authPriv
+    usmUserAuthProtocol 1.3.6.1.6.3.10.1.1.2
+    usmUserPrivProtocol 1.3.6.1.6.3.10.1.2.2
+    usmUserStorageType  nonVolatile
+    usmUserAuthKey      10:2c:bd:65:e3:eb:e2:16:0d:63:db:23:73:f3:17:b2
+    usmUserPrivKey      10:2c:bd:65:e3:eb:e2:16:0d:63:db:23:73:f3:17:b2
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmSecurityToGroupTable vacmSecurityToGroupEntry 1 public
+    vacmGroupName                  all-rights
+    vacmSecurityToGroupStorageType nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmSecurityToGroupTable vacmSecurityToGroupEntry 2 public
+    vacmGroupName                  all-rights
+    vacmSecurityToGroupStorageType nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmSecurityToGroupTable vacmSecurityToGroupEntry 3 initial
+    vacmGroupName                  initial
+    vacmSecurityToGroupStorageType nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmSecurityToGroupTable vacmSecurityToGroupEntry 3 initial_auth
+    vacmGroupName                  initial
+    vacmSecurityToGroupStorageType nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmSecurityToGroupTable vacmSecurityToGroupEntry 3 initial_authPriv
+    vacmGroupName                  initial
+    vacmSecurityToGroupStorageType nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmAccessTable vacmAccessEntry initial "" 3 noAuthNoPriv
+    vacmAccessContextMatch   exact
+    vacmAccessReadViewName   internet
+    vacmAccessWriteViewName  internet
+    vacmAccessNotifyViewName internet
+    vacmAccessStorageType    nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmAccessTable vacmAccessEntry initial "" 3 authNoPriv
+    vacmAccessContextMatch   exact
+    vacmAccessReadViewName   internet
+    vacmAccessWriteViewName  internet
+    vacmAccessNotifyViewName internet
+    vacmAccessStorageType    nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmAccessTable vacmAccessEntry initial "" 3 authPriv
+    vacmAccessContextMatch   exact
+    vacmAccessReadViewName   internet
+    vacmAccessWriteViewName  internet
+    vacmAccessNotifyViewName internet
+    vacmAccessStorageType    nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmAccessTable vacmAccessEntry all-rights "" 0 noAuthNoPriv
+    vacmAccessContextMatch   exact
+    vacmAccessReadViewName   internet
+    vacmAccessWriteViewName  internet
+    vacmAccessNotifyViewName internet
+    vacmAccessStorageType    nonVolatile
+   !
+   SNMP-VIEW-BASED-ACM-MIB vacmViewTreeFamilyTable vacmViewTreeFamilyEntry internet 1.3.6.1
+    vacmViewTreeFamilyMask        ""
+    vacmViewTreeFamilyType        included
+    vacmViewTreeFamilyStorageType nonVolatile
+   !
+   SNMPv2-MIB system sysContact ""
+   SNMPv2-MIB system sysName ""
+   SNMPv2-MIB system sysLocation ""
+   SNMPv2-MIB snmp snmpEnableAuthenTraps disabled
+   exit-admin-config
+  !
+  hostname Node-8
+  domain name-server 161.44.124.122
+  http client source-interface ipv4 MgmtEth0/RP0/CPU0/0
+  netconf agent tty
+  exit
+  netconf-yang agent
+   ssh
+  exit
+  ntp
+   server 198.18.128.1
+  exit
+  username admin
+   group cisco-support
+   group root-lr
+   secret 10 $6$JpvAI0xC1ZnE7I0.$Z3Uo5tgI/GLcTatTag7cuCpHsWn83J/E47llKMs0EPkRQj7Hjy89L3dV5.1ulK/QP87G78.kxoRm4L3cn3SY1/
+  exit
+  aaa authentication login LOCAL local
+  grpc
+   port           57400
+   no-tls
+   address-family ipv4
+  exit
+  line default
+   transport input all
+   transport output all
+   login authentication LOCAL
+  exit
+  line template vty
+   transport input all
+   transport output all
+   login authentication LOCAL
+  exit
+  vty-pool default 0 20
+  ipv4 access-list host-only
+   10 permit ipv4 any host 10.87.9.172
+  exit
+  snmp-server ifindex persist
+  snmp-server host 10.87.9.217 traps version 2c cisco udp-port 1062
+  snmp-server community public RW
+  snmp-server trap-source MgmtEth0/RP0/CPU0/0
+  snmp-server traps snmp linkdown
+  snmp-server traps snmp linkup
+  ssh server rate-limit 600
+  ssh server session-limit 110
+  ssh server v2
+  performance-measurement
+   interface GigabitEthernet0/0/0/0
+    delay-measurement
+     advertise-delay 1
+    exit
+   exit
+   interface GigabitEthernet0/0/0/1
+    delay-measurement
+     advertise-delay 10
+    exit
+   exit
+   interface GigabitEthernet0/0/0/2
+    delay-measurement
+     advertise-delay 6
+    exit
+   exit
+   interface GigabitEthernet0/0/0/3
+    delay-measurement
+     advertise-delay 1
+    exit
+   exit
+   interface GigabitEthernet0/0/0/4
+    delay-measurement
+     advertise-delay 1
+    exit
+   exit
+  exit
+  crypto ca trustpoint Trustpool
+   crl optional
+  exit
+  interface Loopback 0
+   ipv4 address 192.168.255.2 255.255.255.255
+   no shutdown
+  exit
+  interface MgmtEth 0/RP0/CPU0/0
+   ipv4 address 10.87.9.172 255.255.255.0
+   ipv4 access-group host-only ingress
+   ipv4 unreachables disable
+   no shutdown
+  exit
+  interface GigabitEthernet 0/0/0/0
+   description Connected to Node-1 Gig0/0/0/0
+   ipv4 address 10.1.2.2 255.255.255.0
+   no shutdown
+  exit
+  interface GigabitEthernet 0/0/0/1
+   description Connected to Node-3 Gig0/0/0/1
+   ipv4 address 10.2.4.1 255.255.255.0
+   no shutdown
+  exit
+  interface GigabitEthernet 0/0/0/2
+   description Connected to Node-7 Gig0/0/0/2
+   ipv4 address 10.2.3.1 255.255.255.0
+   no shutdown
+  exit
+  interface GigabitEthernet 0/0/0/3
+   description Connected to Node-5 TenGig0/0/0/0.862
+   ipv4 address 10.2.22.1 255.255.255.0
+   no shutdown
+  exit
+  interface GigabitEthernet 0/0/0/4
+   description Connected to Node-9 Gig0/0/0/0/4
+   ipv4 address 10.2.5.1 255.255.255.0
+   no shutdown
+  exit
+  interface preconfigure GigabitEthernet 0/0/0/5
+   shutdown
+  exit
+  interface preconfigure GigabitEthernet 0/0/0/6
+   shutdown
+  exit
+  router static
+   address-family ipv4 unicast
+    0.0.0.0/0 10.87.9.1
+   exit
+  exit
+  router isis SPNAC
+   affinity-map ENCRYPT bit-position 0
+   affinity-map South bit-position 2
+   flex-algo 128
+    metric-type delay
+    advertise-definition
+   exit
+   flex-algo 129
+    advertise-definition
+    affinity include-all ENCRYPT
+   exit
+   flex-algo 132
+    advertise-definition
+    affinity include-all South
+   exit
+   is-type              level-2-only
+   net 47.0000.0000.0002.00
+   nsf ietf
+   log adjacency changes
+   lsp-gen-interval maximum-wait 5000 initial-wait 1 secondary-wait 50
+   lsp-refresh-interval 65000
+   max-lsp-lifetime     65535
+   address-family ipv4 unicast
+    metric-style wide
+    metric       10000
+    mpls traffic-eng level-2-only
+    mpls traffic-eng router-id Loopback0
+    spf-interval maximum-wait 1000 initial-wait 1 secondary-wait 50
+    segment-routing mpls sr-prefer
+   exit
+   interface GigabitEthernet0/0/0/0
+     suppressed
+    circuit-type   level-2-only
+    point-to-point
+    hello-interval 5
+    address-family ipv4 unicast
+     metric 10000
+    exit
+   exit
+   interface GigabitEthernet0/0/0/1
+     suppressed
+    circuit-type   level-2-only
+    point-to-point
+    hello-interval 5
+    address-family ipv4 unicast
+     metric 5000
+    exit
+   exit
+   interface GigabitEthernet0/0/0/2
+     suppressed
+    circuit-type   level-2-only
+    point-to-point
+    hello-interval 5
+    affinity flex-algo ENCRYPT South
+    address-family ipv4 unicast
+     metric 10000
+    exit
+   exit
+   interface GigabitEthernet0/0/0/3
+     suppressed
+    circuit-type   level-2-only
+    point-to-point
+    hello-interval 5
+    affinity flex-algo ENCRYPT South
+    address-family ipv4 unicast
+     metric 10000
+    exit
+   exit
+   interface GigabitEthernet0/0/0/4
+     suppressed
+    circuit-type   level-2-only
+    point-to-point
+    hello-interval 5
+    affinity flex-algo ENCRYPT South
+    address-family ipv4 unicast
+     metric 10000
+    exit
+   exit
+   interface Loopback0
+     passive
+    circuit-type level-2-only
+    address-family ipv4 unicast
+     prefix-sid index 108
+     prefix-sid algorithm 128 absolute 16808
+     prefix-sid algorithm 129 absolute 16908
+     prefix-sid algorithm 132 absolute 17208
+    exit
+   exit
+  exit
+  mpls oam
+  exit
+  segment-routing
+   traffic-eng
+   !
+  !
+  telemetry model-driven
+  exit
+  call-home
+   service active
+   contact smart-licensing
+   profile CiscoTAC-1
+    active
+    destination transport-method http
+   exit
+  exit
+ !
+!
