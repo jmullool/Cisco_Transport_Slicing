@@ -1,9 +1,0 @@
-no cisco-sr-te-cfp:sr-te odn odn-template URLLC head-end
-!
-no cisco-sr-te-cfp:sr-te odn odn-template eMBB head-end
-!
-no devices device Node-2 config segment-routing traffic-eng on-demand color 500
-!
-no devices device Node-4 config segment-routing traffic-eng on-demand color 500
-!
-no devices device Node-5 config segment-routing traffic-eng on-demand color 500

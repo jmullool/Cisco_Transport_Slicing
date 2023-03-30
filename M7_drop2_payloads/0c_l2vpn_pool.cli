@@ -1,3 +1,0 @@
-l2vpn-ntw id-pools evi-id-pool-name evi-id-pool
-l2vpn-ntw id-pools evi-source-target-pool-name evi-source-target-pool
-l2vpn-ntw id-pools rt-pool-name ietf-l2vpn-ntw-rt-pool
