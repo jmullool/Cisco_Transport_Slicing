@@ -1,0 +1,45 @@
+devices device Node-2
+ config
+  segment-routing
+   traffic-eng
+    on-demand color 500
+     per-flow
+      forward-class 0 color 100
+      forward-class 1 color 100
+      forward-class 5 color 110
+     exit
+    exit
+   !
+  !
+ !
+!
+devices device Node-4
+ config
+  segment-routing
+   traffic-eng
+    on-demand color 500
+     per-flow
+      forward-class 0 color 100
+      forward-class 1 color 100
+      forward-class 5 color 110
+     exit
+    exit
+   !
+  !
+ !
+!
+devices device Node-5
+ config
+  segment-routing
+   traffic-eng
+    on-demand color 500
+     per-flow
+      forward-class 0 color 100
+      forward-class 1 color 100
+      forward-class 5 color 110
+     exit
+    exit
+   !
+  !
+ !
+!
