@@ -6,9 +6,9 @@ network-slice-services slice-service slice-L3-ACME
   value [ L3 ]
  !
  service-tags tag-opaque nssai 
-  value [ 123459876 ]
+  value [ 2-123459876 ]
  !
- slo-sle-template Disjoint_South 
+ slo-sle-template URLLC_PM_NoFA 
  sdps sdp 1
   node-id Node-4
   service-match-criteria match-criterion 1

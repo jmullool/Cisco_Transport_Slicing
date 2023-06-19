@@ -48,7 +48,9 @@ network-slice-services slo-sle-templates slo-sle-template DSCP_Flow
 load merge q_per-flow-prereq-odn_headends_1.cli
 load merge q_per-flow-prereq-odn_headends_2.cli
 
-Note: These files are required becuase (a) sr-te CFP does nto support per-flow commands for color 500 and
+It is assumed that the ODN templates have already been built and in the first prereq file we are just adding the manual headends.
+
+Note: These files are required becuase (a) sr-te CFP does not support per-flow commands for color 500 and
 (b) slicing package does not support per-flow slicing thus colors 100 and 110 are not dynamically loaded.
 
 

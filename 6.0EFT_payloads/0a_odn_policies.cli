@@ -56,3 +56,9 @@ cisco-sr-te-cfp:sr-te odn odn-template Disjoint_South
  dynamic flex-alg 132
  dynamic metric-type igp
 !
+cisco-sr-te-cfp:sr-te odn odn-template URLLC_NoFA
+ color 111
+ dynamic pce
+ dynamic metric-type latency
+!
+
