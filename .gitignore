@@ -3,5 +3,4 @@
 /active_work
 .gitignore
 git_notes.txt
-M7_payloads
-M8_payloads
+/Old_Router_Configs

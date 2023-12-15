@@ -1,0 +1,1010 @@
+{
+  "data": {
+    "ietf-network-slice-service:network-slice-services": {
+      "slo-sle-templates": {
+        "slo-sle-template": [
+          {
+            "id": "BWOD_1G",
+            "template-description": "BW on Demand with 1Gbps BW selection",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "BWOD_1G",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:custom": [null],
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "BWOD_500M",
+            "template-description": "BW on Demand with 500Mbps BW selection",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "BWOD_500M",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:custom": [null],
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "BWOD_custom",
+            "template-description": "BW on Demand with Custom BW selection",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "BWOD_custom",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:custom": [null],
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "DSCP_Flow",
+            "template-description": "For L3 Slices: DSCP Flow Based Path Forwarding Selection DSCP EF --> URLLC, other-->eMBB",
+            "cisco-network-slice-service:qos-policy": {
+              "L3": {
+                "input-policy": "per-flow-test",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "DSCP_Flow"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L3": {
+                  "profile-name": "Gold_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM system"
+                }
+              }
+            }
+          },
+          {
+            "id": "Delay_10ms",
+            "template-description": "Highest BW under 10ms delay",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "eMBB_10ms"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "10ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "10ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "10ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "Delay_7ms",
+            "template-description": "Highest BW under 7ms delay",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "eMBB_7ms"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "07ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "Disjoint_North",
+            "template-description": "High Bandwidth Disjoint North Service with basic SLA monitoring",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "Disjoint_North"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "Disjoint_South",
+            "template-description": "High Bandwidth Disjoint South Service with basic SLA monitoring",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "Disjoint_South"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "ENCRYPT",
+            "template-description": "Encrypted path only High Bandwidth Service",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "ENCRYPT"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "Gold",
+            "template-description": "High Priority Services with SLAs",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Gold_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Gold_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Gold_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "Silver",
+            "template-description": "Medium Priority Services with limited SLAs",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC",
+            "template-description": "Flex-Algo based Low latency Service",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "URLLC"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC_Disjoint",
+            "template-description": "Low latency service with Disjoint Paths and 7ms SLO with SR-PM ",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "Delay_Disjoint_72",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "07ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "1wayDelaySvc",
+                  "delay-measurement": {
+                    "profile": "1wayDelay"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC_Disjoint_North",
+            "template-description": "Low latency service with Disjoint Paths and 7ms SLO with SR-PM ",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "Delay_North_73",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "07ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "1wayDelaySvc",
+                  "delay-measurement": {
+                    "profile": "1wayDelay"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC_Disjoint_South",
+            "template-description": "Low latency service with 7ms SLO with SR-PM ",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "Delay_South_74",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "07ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "1wayDelaySvc",
+                  "delay-measurement": {
+                    "profile": "1wayDelay"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC_PM",
+            "template-description": "Flex-Algo based Low latency Service with Performance Measurement Delay Probing",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "URLLC",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "25ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "25ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "25ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "1wayDelaySvc",
+                  "delay-measurement": {
+                    "profile": "1wayDelay"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC_PM_NoFA",
+            "template-description": "Non-Flex-Algo based Low latency Service with Performance Measurement Delay Probing",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "URLLC_NoFA",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "25ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "25ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "25ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "1wayDelaySvc",
+                  "delay-measurement": {
+                    "profile": "1wayDelay"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "URLLC_nonDisjoint",
+            "template-description": "Low latency service with 7ms SLO with SR-PM ",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              },
+              "L3": {
+                "input-policy": "ingress_COS5",
+                "output-policy": "Egress-LowLatency"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "Delay_70",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-NM custom"
+                  },
+                  "multipoint": {
+                    "profile-name": "07ms_L2VPN_ConfigProfile custom",
+                    "rule-name": "Rule-L2VPN-MP custom"
+                  }
+                },
+                "L3": {
+                  "profile-name": "07ms_L3VPN_ConfigProfile custom",
+                  "rule-name": "Rule-L3VPN-NM custom"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "id-type": "icc-based",
+                  "message-period": "1s",
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "1wayDelaySvc",
+                  "delay-measurement": {
+                    "profile": "1wayDelay"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "eMBB",
+            "template-description": "High Bandwidth Service with basic SLA monitoring",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "eMBB"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM-Basic system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Silver_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP-Basic system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Silver_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM-Basic system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              }
+            }
+          },
+          {
+            "id": "eMBB_PM",
+            "template-description": "High Bandwidth Service with Advanced Performance Measurement liveness Probing",
+            "cisco-network-slice-service:qos-policy": {
+              "L2": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              },
+              "L3": {
+                "input-policy": "ingress_COS1",
+                "output-policy": "Egress-High_Bw_Apps"
+              }
+            },
+            "cisco-network-slice-service:odn": {
+              "forwarding-plane-policy": "eMBB",
+              "forwarding-plane-policy-type": "as-blueprint"
+            },
+            "cisco-network-slice-service:service-assurance": {
+              "heuristics": {
+                "monitoring-state": "enable",
+                "L2": {
+                  "point-to-point": {
+                    "profile-name": "Gold_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-NM system"
+                  },
+                  "multipoint": {
+                    "profile-name": "Gold_L2VPN_ConfigProfile system",
+                    "rule-name": "Rule-L2VPN-MP system"
+                  }
+                },
+                "L3": {
+                  "profile-name": "Gold_L3VPN_ConfigProfile system",
+                  "rule-name": "Rule-L3VPN-NM system"
+                }
+              },
+              "ethernet-service-oam": {
+                "md-name": "foo",
+                "md-level": 4,
+                "y-1731": {
+                  "profile-delay": "Profile-Delay-1"
+                }
+              },
+              "performance-measurement": {
+                "sr-te": {
+                  "pm-svc-profile": "livenessSvc",
+                  "liveness-detection": {
+                    "profile": "livenessTest"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "cisco-network-slice-service:qos-catalog": {
+          "L2": {
+            "output-qos-policy": [
+              {
+                "name": "Egress-High_Bw_Apps",
+                "description": "High BW egress"
+              },
+              {
+                "name": "Egress-LowLatency",
+                "description": "Low Latency priority egress"
+              }
+            ],
+            "input-qos-policy": [
+              {
+                "name": "ingress_COS1",
+                "description": "Treat all as Business_Data"
+              },
+              {
+                "name": "ingress_COS3",
+                "description": "Treat all as Video Data"
+              },
+              {
+                "name": "ingress_COS5",
+                "description": "Treat all as Priority Data"
+              },
+              {
+                "name": "ingress_TRUST_L2",
+                "description": "Trust COS markings from CE"
+              },
+              {
+                "name": "ingress_UNTRUST",
+                "description": "Do Not Trust COS  markings from CE"
+              }
+            ]
+          },
+          "L3": {
+            "output-qos-policy": [
+              {
+                "name": "Egress-High_Bw_Apps",
+                "description": "High BW egress"
+              },
+              {
+                "name": "Egress-LowLatency",
+                "description": "Low Latency priority egress"
+              }
+            ],
+            "input-qos-policy": [
+              {
+                "name": "ingress_COS1",
+                "description": "Business Data"
+              },
+              {
+                "name": "ingress_COS3",
+                "description": "Video"
+              },
+              {
+                "name": "ingress_COS5",
+                "description": "High Priority/Low Latency"
+              },
+              {
+                "name": "ingress_TRUST",
+                "description": "Trust DSCP markings from CE"
+              },
+              {
+                "name": "ingress_UNTRUST",
+                "description": "Do Not Trust DSCP markings from CE"
+              },
+              {
+                "name": "per-flow-test",
+                "description": "DSCP based per-flow path selection testing"
+              }
+            ]
+          }
+        }
+      },
+      "cisco-network-slice-service:cfp-configurations": {
+        "color-pool-name": "sr-color-pool"
+      },
+      "cisco-network-slice-service:global-settings": {
+        "parent-rr-route-policy": "SET_COLOR_EVPN_VPWS"
+      }
+    }
+  }
+}

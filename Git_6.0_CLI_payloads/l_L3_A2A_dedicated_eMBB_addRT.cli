@@ -1,0 +1,84 @@
+network-slice-services slice-service l_L3_A2A_ded
+ service-description "dedicated slice for L3 Hub/spoke slice with manual and additional RTs- l_L3_A2A_dedicated_eMBB_addRT.cli"
+ service-tags tag-type service-tag-service
+  value [ L3 ]
+ !
+ service-tags tag-opaque nssai
+  value [ 1-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ ACME ]
+ !
+ connection-groups connection-group group1
+   connectivity-type any-to-any
+   vpn-target hub-rt 0:65003:65003
+ !
+ slo-sle-template eMBB
+ sdps sdp 1
+  node-id Node-4 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac1
+   ac-tp-id            TenGigE0/0/0/10
+   ac-ip-address       172.16.2.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 461 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.2.2 ]
+    bgp-attributes remote-as 65102
+   !
+  !
+  !
+  vpn-targets vpn-target 1
+   route-targets 0:33001:33001
+   !
+   route-targets 0:33002:33002
+   !
+   route-target-type export
+  !
+  vpn-targets vpn-target 2
+   route-targets 0:40001:40001
+   !
+   route-target-type import
+  !
+ !
+ sdps sdp 2
+  node-id Node-5
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac2
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.1.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 361 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.1.2 ]
+    bgp-attributes remote-as 65101
+   !
+  !
+ !
+ sdps sdp 3
+  node-id Node-2
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac3
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.3.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 661 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.3.2 ]
+    bgp-attributes remote-as 65103
+   !
+  !
+ !
+!

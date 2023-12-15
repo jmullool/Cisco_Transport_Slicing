@@ -1,0 +1,47 @@
+devices template ct-color-130-10ms
+ ned-id cisco-iosxr-cli-7.52
+  config
+   segment-routing traffic-eng on-demand color 130
+    dynamic bounds cumulative type latency
+     value 10000
+    !
+   !
+  !
+ !
+!
+devices template ct-color-131-7ms
+ ned-id cisco-iosxr-cli-7.52
+  config
+   segment-routing traffic-eng on-demand color 131
+    dynamic bounds cumulative type latency
+     value 7000
+    !
+   !
+  !
+ !
+!
+devices template ct-color-500-flow
+ ned-id cisco-iosxr-cli-7.52
+  config
+   segment-routing traffic-eng on-demand color 500
+    per-flow forward-class 0
+     color 100
+    !
+    per-flow forward-class 1
+     color 100
+    !
+    per-flow forward-class 5
+     color 110
+    !
+   !
+   segment-routing traffic-eng on-demand color 100
+    dynamic pcep
+    dynamic metric type igp
+   !
+   segment-routing traffic-eng on-demand color 110
+    dynamic pcep
+    dynamic metric type latency
+   !
+  !
+ !
+!

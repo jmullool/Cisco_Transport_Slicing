@@ -1,0 +1,11 @@
+{
+  "data": {
+    "ietf-l2vpn-ntw:l2vpn-ntw": {
+      "cisco-l2vpn-ntw:id-pools": {
+        "evi-id-pool-name": "evi-id-pool",
+        "evi-source-target-pool-name": "evi-source-target-pool",
+        "rt-pool-name": "ietf-l2vpn-ntw-rt-pool"
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+network-slice-services slice-service n_L2_MP_ded_BWoD
+ service-description "dedicated slice for L2 MP slice with BWoD 1G- n_L2_MP_dedicated_BWOD_1G.cli"
+ service-tags tag-type service-tag-service
+  value [ L2 ]
+ !
+ service-tags tag-opaque nssai
+  value [ 1-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ BAR ]
+ !
+ slo-sle-template BWOD_1G 
+ sdps sdp 1
+  node-id Node-4 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group2
+  !
+  attachment-circuits attachment-circuit ac1
+   ac-tp-id TenGigE0/0/0/10
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 415 ]
+   !
+  !
+ !
+ sdps sdp 2
+  node-id Node-5 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group2
+  !
+  attachment-circuits attachment-circuit ac2
+   ac-tp-id TenGigE0/0/0/2
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 315 ]
+   !
+  !
+ !
+ sdps sdp 3
+  node-id Node-2 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group2
+  !
+  attachment-circuits attachment-circuit ac3
+   ac-tp-id TenGigE0/0/0/2
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 615 ]
+   !
+  !
+ !
+ connection-groups connection-group group2
+  connectivity-type any-to-any
+  vpn-target auto-hub-rt
+ !
+!

@@ -1,0 +1,20 @@
+pm pm-profiles delay-profile sr-policy profile 1wayDelay
+ probe computation-interval 60
+ probe tx-interval 30000
+ probe protocol       twamp-light
+ probe measurement-mode one-way
+ advertisement periodic interval 60
+ advertisement periodic threshold 20
+ advertisement periodic minimum-change 1000
+!
+pm pm-profiles liveness-profile sr-policy profile livenessTest
+ probe tx-interval 100000
+!
+pm svc-profiles 1wayDelaySvc
+ performance-measurement delay-profile sr-policy profile 1wayDelay
+ !
+!
+pm svc-profiles livenessSvc
+ performance-measurement liveness-profile sr-policy profile livenessTest
+ !
+!

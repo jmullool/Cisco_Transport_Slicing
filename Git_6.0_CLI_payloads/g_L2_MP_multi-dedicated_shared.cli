@@ -1,0 +1,99 @@
+network-slice-services slice-service g_L2_MP_ded-1
+ service-description "L2 MP dedicated slice1 connected to shared slice- g_L2_MP_multi-dedicated_shared.cli"
+ service-tags tag-type service-tag-service
+  value [ L2 ]
+ !
+ service-tags tag-opaque nssai
+ value [ 2-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ Ford ]
+ !
+!
+ slo-sle-template URLLC 
+ sdps sdp 1
+  node-id Node-4 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac1
+   ac-tp-id            TenGigE0/0/0/10
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 412 ]
+   !
+  !
+ !
+ connection-groups connection-group group1
+   connectivity-type any-to-any
+ !
+ isolation        service-isolation-dedicated
+ !
+ shared slice g_L2_MP_shared
+ !
+ shared single-sided-control true
+!
+network-slice-services slice-service g_L2_MP_ded-2
+ service-description "L2 MP dedicated slice2 connected to shared slice- g_L2_MP_multi-dedicated_shared.cli"
+ service-tags tag-type service-tag-service
+  value [ L2 ]
+ !
+ service-tags tag-opaque nssai
+ value [ 1-789 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ Chevy ]
+ !
+!
+ slo-sle-template eMBB 
+ sdps sdp 3
+  node-id Node-2
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac3
+   ac-tp-id            TenGigE0/0/0/2
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 612 ]
+   !
+  !
+ !
+ connection-groups connection-group group1
+   connectivity-type any-to-any
+ !
+ isolation        service-isolation-dedicated
+ !
+ shared slice  g_L2_MP_shared
+ !
+ shared single-sided-control true
+!
+network-slice-services slice-service g_L2_MP_shared
+ service-description "L2 MP shared slice- g_L2_MP_multi-dedicated_shared.cli"
+ service-tags tag-type service-tag-service
+  value [ L2 ]
+ !
+ service-tags tag-opaque nssai
+ value [ 1-12345 1-789 2-123459876 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ NAPA ]
+ !
+!
+ slo-sle-template eMBB
+  sdps sdp 1
+  node-id Node-5 
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac2
+   ac-tp-id            TenGigE0/0/0/2
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 312 ]
+   !
+  !
+ !
+ connection-groups connection-group group1
+   connectivity-type any-to-any
+ !
+ isolation        service-isolation-shared
+ !
+!

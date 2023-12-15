@@ -1,0 +1,13 @@
+{
+  "data": {
+    "ietf-network-slice-service:network-slice-services": {
+      "slice-service": [
+        {
+          "service-id": "a_L3_A2A_ded",
+          "service-description": "L3 any-2-any dedicated slice- b_L3_A2A_dedicated_URLLC.cli",
+          "slo-sle-template": "URLLC",
+        }
+      ]
+    }
+  }
+}

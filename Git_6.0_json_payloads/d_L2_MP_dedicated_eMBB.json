@@ -1,0 +1,130 @@
+{
+  "data": {
+    "ietf-network-slice-service:network-slice-services": {
+      "slice-service": [
+        {
+          "service-id": "d_L2_MP_ded",
+          "service-description": "L2 multi-point dedicated slice- d_L2_MP_dedicated_eMBB.cli",
+          "service-tags": {
+            "tag-type": [
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-customer",
+                "value": ["BAR"]
+              },
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-service",
+                "value": ["L2"]
+              }
+            ],
+            "tag-opaque": [
+              {
+                "tag-name": "nssai",
+                "value": ["2-123459876"]
+              }
+            ]
+          },
+          "slo-sle-template": "eMBB",
+          "sdps": {
+            "sdp": [
+              {
+                "sdp-id": "1",
+                "node-id": "Node-4",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group2"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac1",
+                      "ac-tp-id": "TenGigE0/0/0/10",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [411]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "sdp-id": "2",
+                "node-id": "Node-5",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group2"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac2",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [311]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "sdp-id": "3",
+                "node-id": "Node-2",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group2"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac3",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [611]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connection-groups": {
+            "connection-group": [
+              {
+                "connection-group-id": "group2",
+                "connectivity-type": "ietf-vpn-common:any-to-any",
+                "cisco-network-slice-service:vpn-target": {
+                  "auto-hub-rt": [null]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "data": {
+    "cisco-pm-fp:pm": {
+      "pm-profiles": {
+        "delay-profile": {
+          "sr-policy": {
+            "profile": [
+              {
+                "name": "1wayDelay",
+                "probe": {
+                  "computation-interval": 60,
+                  "tx-interval": 30000,
+                  "protocol": "twamp-light",
+                  "measurement-mode": "one-way"
+                },
+                "advertisement": {
+                  "periodic": {
+                    "interval": 60,
+                    "threshold": 20,
+                    "minimum-change": 1000
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "liveness-profile": {
+          "sr-policy": {
+            "profile": [
+              {
+                "name": "livenessTest",
+                "probe": {
+                  "tx-interval": 100000
+                }
+              }
+            ]
+          }
+        }
+      },
+      "svc-profiles": [
+        {
+          "name": "1wayDelaySvc",
+          "performance-measurement": {
+            "delay-profile": {
+              "sr-policy": {
+                "profile": [
+                  {
+                    "name": "1wayDelay"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "livenessSvc",
+          "performance-measurement": {
+            "liveness-profile": {
+              "sr-policy": {
+                "profile": [
+                  {
+                    "name": "livenessTest"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

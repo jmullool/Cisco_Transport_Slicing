@@ -1,0 +1,95 @@
+{
+    "resource-allocator:resource-pools": {
+      "id-allocator:id-pool": [
+        {
+          "name": "LoopbackIDPool",
+          "range": {
+            "start": 150,
+            "end": 200
+          }
+        },
+        {
+          "name": "bidirectional-association-id-pool",
+          "range": {
+            "start": 1,
+            "end": 65535
+          }
+        },
+        {
+          "name": "color-pool",
+          "range": {
+            "start": 501,
+            "end": 699
+          }
+        },
+        {
+          "name": "disjoint-group-pool",
+          "range": {
+            "start": 10,
+            "end": 50
+          }
+        },
+        {
+          "name": "evi-id-pool",
+          "range": {
+            "start": 1,
+            "end": 4000
+          }
+        },
+        {
+          "name": "evi-source-target-pool",
+          "range": {
+            "start": 1,
+            "end": 400
+          }
+        },
+        {
+          "name": "ietf-l3vpn-ntw-rt-pool",
+          "range": {
+            "start": 1,
+            "end": 4294967295
+          }
+        },
+         {
+          "name": "ip-sla-pool",
+          "range": {
+            "start": 1,
+            "end": 2147483647
+          }
+        },
+        {
+          "name": "mep-id-pool",
+          "range": {
+            "start": 1,
+            "end": 8191
+          }
+        },
+        {
+          "name": "sman-id-pool",
+          "range": {
+            "start": 1,
+            "end": 65535
+          }
+        },
+        {
+          "name": "sr-color-pool",
+          "range": {
+            "start": 1000,
+            "end": 2000
+          }
+        }
+      ],
+      "ipaddress-allocator:ip-address-pool": [
+        {
+          "name": "LoopbackIPPool",
+          "subnet": [
+            {
+              "address": "10.0.1.10",
+              "cidrmask": 24
+            }
+          ]
+        }
+      ]
+    }
+  }
+

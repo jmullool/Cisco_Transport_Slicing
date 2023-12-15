@@ -1,0 +1,216 @@
+{
+  "data": {
+    "ietf-network-slice-service:network-slice-services": {
+      "slice-service": [
+        {
+          "service-id": "g_L2_MP_ded-1",
+          "service-description": "L2 MP dedicated slice1 connected to shared slice- g_L2_MP_multi-dedicated_shared.cli",
+          "service-tags": {
+            "tag-type": [
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-customer",
+                "value": ["Ford"]
+              },
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-service",
+                "value": ["L2"]
+              }
+            ],
+            "tag-opaque": [
+              {
+                "tag-name": "nssai",
+                "value": ["2-123459876"]
+              }
+            ]
+          },
+          "slo-sle-template": "URLLC",
+          "cisco-network-slice-service:isolation": "ietf-network-slice-service:service-isolation-dedicated",
+          "sdps": {
+            "sdp": [
+              {
+                "sdp-id": "1",
+                "node-id": "Node-4",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group1"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac1",
+                      "ac-tp-id": "TenGigE0/0/0/10",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [412]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connection-groups": {
+            "connection-group": [
+              {
+                "connection-group-id": "group1",
+                "connectivity-type": "ietf-vpn-common:any-to-any"
+              }
+            ]
+          },
+          "cisco-network-slice-service:shared": {
+            "slice": [
+              {
+                "service-id": "g_L2_MP_shared"
+              }
+            ],
+            "single-sided-control": true
+          }
+        },
+        {
+          "service-id": "g_L2_MP_ded-2",
+          "service-description": "L2 MP dedicated slice2 connected to shared slice- g_L2_MP_multi-dedicated_shared.cli",
+          "service-tags": {
+            "tag-type": [
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-customer",
+                "value": ["Chevy"]
+              },
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-service",
+                "value": ["L2"]
+              }
+            ],
+            "tag-opaque": [
+              {
+                "tag-name": "nssai",
+                "value": ["1-789"]
+              }
+            ]
+          },
+          "slo-sle-template": "eMBB",
+          "cisco-network-slice-service:isolation": "ietf-network-slice-service:service-isolation-dedicated",
+          "sdps": {
+            "sdp": [
+              {
+                "sdp-id": "3",
+                "node-id": "Node-2",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group1"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac3",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [612]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connection-groups": {
+            "connection-group": [
+              {
+                "connection-group-id": "group1",
+                "connectivity-type": "ietf-vpn-common:any-to-any"
+              }
+            ]
+          },
+          "cisco-network-slice-service:shared": {
+            "slice": [
+              {
+                "service-id": "g_L2_MP_shared"
+              }
+            ],
+            "single-sided-control": true
+          }
+        },
+        {
+          "service-id": "g_L2_MP_shared",
+          "service-description": "L2 MP shared slice- g_L2_MP_multi-dedicated_shared.cli",
+          "service-tags": {
+            "tag-type": [
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-customer",
+                "value": ["NAPA"]
+              },
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-service",
+                "value": ["L2"]
+              }
+            ],
+            "tag-opaque": [
+              {
+                "tag-name": "nssai",
+                "value": ["1-12345", "1-789", "2-123459876"]
+              }
+            ]
+          },
+          "slo-sle-template": "eMBB",
+          "cisco-network-slice-service:isolation": "ietf-network-slice-service:service-isolation-shared",
+          "sdps": {
+            "sdp": [
+              {
+                "sdp-id": "1",
+                "node-id": "Node-5",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group1"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac2",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [312]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connection-groups": {
+            "connection-group": [
+              {
+                "connection-group-id": "group1",
+                "connectivity-type": "ietf-vpn-common:any-to-any"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

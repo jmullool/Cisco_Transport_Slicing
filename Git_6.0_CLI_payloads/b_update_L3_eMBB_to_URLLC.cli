@@ -1,0 +1,4 @@
+network-slice-services slice-service a_L3_A2A_ded
+ service-description "L3 any-2-any dedicated slice- upgrade to URLLC"
+ slo-sle-template URLLC
+!

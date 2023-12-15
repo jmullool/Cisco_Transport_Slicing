@@ -1,0 +1,131 @@
+{
+  "data": {
+    "tailf-ncs:devices": {
+      "template": [
+        {
+          "name": "ct-color-130-10ms",
+          "ned-id": [
+            {
+              "id": "cisco-iosxr-cli-7.52:cisco-iosxr-cli-7.52",
+              "config": {
+                "tailf-ned-cisco-ios-xr:segment-routing": {
+                  "traffic-eng": {
+                    "on-demand": {
+                      "color": [
+                        {
+                          "id": "130",
+                          "dynamic": {
+                            "bounds": {
+                              "cumulative": {
+                                "type": [
+                                  {
+                                    "name": "latency",
+                                    "value": "10000"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "ct-color-131-7ms",
+          "ned-id": [
+            {
+              "id": "cisco-iosxr-cli-7.52:cisco-iosxr-cli-7.52",
+              "config": {
+                "tailf-ned-cisco-ios-xr:segment-routing": {
+                  "traffic-eng": {
+                    "on-demand": {
+                      "color": [
+                        {
+                          "id": "131",
+                          "dynamic": {
+                            "bounds": {
+                              "cumulative": {
+                                "type": [
+                                  {
+                                    "name": "latency",
+                                    "value": "7000"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "ct-color-500-flow",
+          "ned-id": [
+            {
+              "id": "cisco-iosxr-cli-7.52:cisco-iosxr-cli-7.52",
+              "config": {
+                "tailf-ned-cisco-ios-xr:segment-routing": {
+                  "traffic-eng": {
+                    "on-demand": {
+                      "color": [
+                        {
+                          "id": "500",
+                          "per-flow": {
+                            "forward-class": [
+                              {
+                                "id": "0",
+                                "color": "100"
+                              },
+                              {
+                                "id": "1",
+                                "color": "100"
+                              },
+                              {
+                                "id": "5",
+                                "color": "110"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "100",
+                          "dynamic": {
+                            "pcep": {
+                            },
+                            "metric": {
+                              "type": "igp"
+                            }
+                          }
+                        },
+                        {
+                          "id": "110",
+                          "dynamic": {
+                            "pcep": {
+                            },
+                            "metric": {
+                              "type": "latency"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

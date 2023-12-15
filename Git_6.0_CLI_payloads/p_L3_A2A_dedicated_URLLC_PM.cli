@@ -1,0 +1,71 @@
+network-slice-services slice-service p_L3_A2A_ded_PM
+ service-description "L3 A2A slice with SR-PM- p_L3_A2A_dedicated_URLLC_PM.cli"
+ service-tags tag-type service-tag-service
+  value [ L3 ]
+ !
+ service-tags tag-type service-tag-customer
+  value [ ACME ]
+ !
+ service-tags tag-opaque nssai 
+  value [ 2-123459876 ]
+ !
+!
+ slo-sle-template URLLC_PM
+ sdps sdp 1
+  node-id Node-4
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac1
+   ac-tp-id            TenGigE0/0/0/10
+   ac-ip-address       172.16.2.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 1411 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.2.2 ]
+    bgp-attributes remote-as 65102
+   !
+  !
+ !
+ sdps sdp 2
+  node-id Node-5
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac2
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.1.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 1311 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.1.2 ]
+    bgp-attributes remote-as 65101
+   !
+  !
+ !
+ sdps sdp 3
+  node-id Node-2
+  service-match-criteria match-criterion 1
+   target-connection-group-id group1
+  !
+  attachment-circuits attachment-circuit ac3
+   ac-tp-id            TenGigE0/0/0/2
+   ac-ip-address       172.16.3.1
+   ac-ip-prefix-length 29
+   ac-tags ac-tags attachment-circuit-tag-vlan-id
+    value [ 1611 ]
+   !
+   sdp-peering protocol peering-protocol-bgp
+    bgp-attributes neighbor [ 172.16.3.2 ]
+    bgp-attributes remote-as 65103
+   !
+  !
+ !
+ connection-groups connection-group group1
+   connectivity-type any-to-any
+ !
+!

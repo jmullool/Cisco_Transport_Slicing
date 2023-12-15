@@ -1,0 +1,99 @@
+{
+  "data": {
+    "ietf-network-slice-service:network-slice-services": {
+      "slice-service": [
+        {
+          "service-id": "c_L2_P2P_ded",
+          "service-description": "L2 pt-2-pt dedicated slice- c_L2_P2P_eMBB.cli",
+          "service-tags": {
+            "tag-type": [
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-customer",
+                "value": ["FOO"]
+              },
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-service",
+                "value": ["L2"]
+              }
+            ],
+            "tag-opaque": [
+              {
+                "tag-name": "nssai",
+                "value": ["2-123459876"]
+              }
+            ]
+          },
+          "slo-sle-template": "eMBB",
+          "sdps": {
+            "sdp": [
+              {
+                "sdp-id": "1",
+                "node-id": "Node-4",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group3"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "AC-1",
+                      "ac-tp-id": "TenGigE0/0/0/10",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [422]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "sdp-id": "2",
+                "node-id": "Node-5",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 2,
+                      "target-connection-group-id": "group3"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "AC-2",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [322]
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connection-groups": {
+            "connection-group": [
+              {
+                "connection-group-id": "group3",
+                "connectivity-type": "ietf-network-slice-service:point-to-point"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

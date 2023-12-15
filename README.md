@@ -1,16 +1,15 @@
 # Cisco Transport Slicing- Setup and Sample Payloads for Various Slicing Use-cases 
 
-This is a repo of sample payloads and usage for deploying Cisco's Transport Slicing Solution with Cisco's Network Services Orchestrator (NSO).
+This is a repo of sample payloads and usage for deploying Cisco's Transport Slicing Solution with Cisco's Network COntroller (CNC) which includes Cisco's Network Services Orchestrator (NSO).
 The Slicing YANG model is based off of an early version of the IETF work specified here: 
 https://datatracker.ietf.org/doc/html/draft-ietf-teas-ietf-network-slice-nbi-yang-03
 
-Long term, Cisco will trying to maintain compatibility between models, but some differences are exist as Cisco has augmented the model to support additional
-optional parameters. 
+Longer term and once the IETF YANG model goes to WGLC and is standardized, it will be updated to the latest version for compatibility. Cisco has augmented the model to support additional optional parameters. 
 
 ## Network Prerequisites
 
 The Network devices used in our experimentation were Cisco NCS5500s and vXR9K Routers. Configurations are available in the RouterConfigs folder in various formats.
-The network is running SR-MPLS, MP-BGP, ISIS and has both PCE and RR components. 
+The network is running SR-MPLS, MP-BGP, ISIS and has both PCE and RR components.  
 
 It is also assumed if using the input and output QoS options in the Slicing Catalog that the appropriate QoS policy maps have been pre-positioned on the devices.
 
@@ -20,70 +19,67 @@ It is assumed you have a working NSO 6.1 System with the latest T-SDN CFP loaded
 includes NSO 6.1 and the required T-SDN CFPs.
 
 
-## Installing and Verifying the Slicing package
+## Verifying the NSO T-SDN and Slicing packages
 
-Place the ncs-6.1-ietf-network-slice-service-EXAMPLE-5.0.0.tar.gz file into your running directory's packages folder on NSO. Then do a package-reload command at the NCS CLI. Verify that the package is "UP".
+Please follow all Release Notes to install and load bootstab files.
 
 ```
-admin@ncs-6.1# packages reload
-...
 
-reload-result {
-    package ietf-network-slice-service
-    result true
-}
+admin@ncs# show packages package oper-status up      
+NAME                          UP  
+----------------------------------
+cisco-L2vpn-fp-internal       X   
+cisco-L3vpn-fp-internal       X   
+cisco-aa-service-assurance    X   
+cisco-cfp-jwt-auth            X   
+cisco-cs-sr-te-cfp            X   
+cisco-ios-cli-6.86            X   
+cisco-iosxr-cli-7.46          X   
+cisco-iosxr-cli-7.52          X   
+cisco-iosxr-nc-7.5            X   
+cisco-pm-fp                   X   
+cisco-pm-fp-internal          X   
+cisco-rsvp-te-fp              X   
+cisco-sr-te-cfp               X   
+cisco-sr-te-cfp-internal      X   
+cisco-tm-tc-fp                X   
+cisco-tsdn-core-fp-common     X   
+core-fp-common                X   
+core-fp-delete-tag-service    X   
+core-fp-plan-notif-generator  X   
+custom-template-utils         X   
+cw-device-auth                X   
+dlm-svc                       X   
+ietf-l2vpn-nm                 X   
+ietf-l3vpn-nm                 X   
+ietf-network-slice-service    X   
+ietf-te-fp                    X   
+l2vpn-multi-vendors           X   
+l3vpn-multi-vendors           X   
+lsa-utils                     X   
+pm-multi-vendors              X   
+resource-manager              X   
+rest-api-explorer             X   
+rsvp-te-multi-vendors         X   
+sr-te-multi-vendors           X   
+tm-tc-multi-vendors           X   
 
-.....
-
-admin@ncs-6.1# show packages package oper-status 
-                                                                                                                             PACKAGE                          
-                                               PROGRAM                                                                       META     FILE                    
-                                               CODE     JAVA           PYTHON         BAD NCS  PACKAGE  PACKAGE  CIRCULAR    DATA     LOAD   ERROR            
-NAME                                       UP  ERROR    UNINITIALIZED  UNINITIALIZED  VERSION  NAME     VERSION  DEPENDENCY  ERROR    ERROR  INFO   WARNINGS  
---------------------------------------------------------------------------------------------------------------------------------------------------------------
-cisco-aa-service-assurance                 X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-cs-sr-te-cfp                         X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-flat-L2vpn-fp-internal               X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-flat-L3vpn-fp-internal               X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-internet-access-service-fp           X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-internet-access-service-fp-internal  X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-ios-cli-6.86                         X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-iosxr-cli-7.45                       X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-iosxr-nc-7.7                         X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-pm-fp                                X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-pm-fp-internal                       X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-rsvp-te-fp                           X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-sr-te-cfp                            X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-sr-te-cfp-internal                   X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-tm-tc-fp                             X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-tsdn-core-fp-common                  X   -        -              -              -        -        -        -           -        -      -      -         
-core-fp-common                             X   -        -              -              -        -        -        -           -        -      -      -         
-core-fp-delete-tag-service                 X   -        -              -              -        -        -        -           -        -      -      -         
-core-fp-plan-notif-generator               X   -        -              -              -        -        -        -           -        -      -      -         
-custom-template-utils                      X   -        -              -              -        -        -        -           -        -      -      -         
-cw-device-auth                             X   -        -              -              -        -        -        -           -        -      -      -         
-cw-dlm-fp                                  X   -        -              -              -        -        -        -           -        -      -      -         
-ietf-l2vpn-nm                              X   -        -              -              -        -        -        -           -        -      -      -         
-ietf-l3vpn-nm                              X   -        -              -              -        -        -        -           -        -      -      -         
-ietf-network-slice-service                 X   -        -              -              -        -        -        -           -        -      -      -         
-ietf-te-fp                                 X   -        -              -              -        -        -        -           -        -      -      -         
-lsa-utils                                  X   -        -              -              -        -        -        -           -        -      -      -         
-resource-manager                           X   -        -              -              -        -        -        -           -        -      -      -         
 ```
 
 ### One-time configurations to set-up the NSO Slicing system:
 
-In the payloads folder, load the pre-slice instantiation files listed in order (starting with 0a to 0f).
-These files can also be customized to satisfied to satisfy your systems's requirements
+In the payloads folder, load the pre-slice instantiation files listed in order (starting with 0aa to 0f).
+These files can also be customized to satisfied your systems's requirements
 
 ```
 These files accomplish the following:
+0aa_custom_templates.cli- load custom templates for complex use cases
 0a_odn_policies.cli- pre-load ODN templates into the SR-TE CFP.
 0b_resource_pools.cli- pre-loaded all resource pools required for coloring, evi's, L2 and L3 RTs, Y1731, etc
 0c_l2vpn_pool.cli- pre-load additional l2vpn-ntw pools
 0d_pm-profiles.cli- pre-load performance management pools for SR-PM
 0e_y1731.cli- pre-load Y1731-profile configs
-0f_slicing-pre-configs.cli- pre-load Slicing catalog
+0f_slicing-pre-configs.cli- pre-load Slicing template catalog
 ```
 
 #### Sample Payloads with use-cases
@@ -91,8 +87,8 @@ These files accomplish the following:
 The following test use-case payload are available. Several of these use-cases will require additional prerequisites which are called out in separate read me files.
 
 ```
-
-Slice Test-Cases (test letters maps to payload name):
+Slice Test-Cases (test letters maps to payload name): Be aware some payloads may use the same endpoints, so proper cleanup is required before
+creating a new slice.
 
 a- Three site any-to_any L3 Slice with various catalog entries, eMBB, URLLC, Gold (Gold=no SR-TE but high priority QoS)
 
@@ -112,7 +108,8 @@ h- Three site hub-spoke L3 slice with URLLC (two spokes can not communicate with
 
 i- Three site hub-spoke L2 slice with URLLC (two spokes can not communicate with each other).
 
-j- One shared slice L3 site with eMBB (NAPA) and one dedicated hub-spoke slice (1) one with no hub specified, just spokes (2) another with a hub specified on same PE as shared site.  Both are Ford spokes with URLLC with Single-sided-control
+j- One shared slice L3 site with eMBB (NAPA) and one dedicated hub-spoke slice (1) one with no hub specified, just spokes (2) another payload with both a shared slice and a hub specified on same PE as shared site.  Both are Ford spokes with URLLC with Single-sided-control
+
 
 k- One shared slice L2 (any to any) site with eMBB (NAPA) and two dedicated slices, each are hub-spoke L2, with each only having a spoke defined. Ford with URLLC with Single-sided-control and Chevy with eMBB  
 
@@ -124,16 +121,20 @@ n- Mix of BWOD Use cases, using new BWOD catalog entries. (1)  with BWOD custom 
 
 o- Same as a, but with Encrypted Slice type using Flex-Algo 129 with link affinities.
 
-p- same as a, but using catalof entry that specifes SR-PM for both delay (URLLC) and liveness (eMBB))
+p- same as a, but using catalog entry that specifes SR-PM for both delay (URLLC) and liveness (eMBB))
 
-q- Testing for DSCP per-flow based slices. Need to view README as this is technically not supported slice type but we can make work. load pre-requisit configs to setup headends with proper ODN templates. 
+q- Testing for DSCP per-flow based slices. Need to view README as this is technically not supported slice type but we can make work. load pre-requisit configs (custom-template and ODN policy) to allow for non supported CFP commands. 
 
 r- same as a, but using Disjoint Path slice type via flex-algo 131 or 132 for a North bound path or a South bound path
 
-s- Same as a, but workaround to support  "cumulative bound metrics" or bounded slice delays. Need to view README and manaully configure proper ODN templates on headends. 
+s- Same as a, but workaround to support  "cumulative bound metrics" or bounded slice delays. Need to view README and manaully configure proper custom-templates and ODN templates to allow for unsupported CFP commands. 
+
+t- rework of CNC example from docuementaiton but using slicing services. Intent includes disjoint paths for traffic sent from Node-5 to either Node-4 or Node-2 (only one direction) and low latency. Two solutions identiied, one using disjoint path command in ODN template and the other using disjoint FA policy.
+
+
 
 ```
 
-
+<img src="Picture1.png" alt="Test Topology">
 
 

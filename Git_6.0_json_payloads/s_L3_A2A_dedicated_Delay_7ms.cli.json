@@ -1,0 +1,166 @@
+{
+  "data": {
+    "ietf-network-slice-service:network-slice-services": {
+      "slice-service": [
+        {
+          "service-id": "s_L3_A2A_ded_Del",
+          "service-description": "L3 A2A with max delay 07ms- s_L3_A2A_dedicated_Delay_07ms.cli",
+          "service-tags": {
+            "tag-type": [
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-customer",
+                "value": ["ACME"]
+              },
+              {
+                "tag-type": "ietf-network-slice-service:service-tag-service",
+                "value": ["L3"]
+              }
+            ],
+            "tag-opaque": [
+              {
+                "tag-name": "nssai",
+                "value": ["1-123459876"]
+              }
+            ]
+          },
+          "slo-sle-template": "Delay_7ms",
+          "sdps": {
+            "sdp": [
+              {
+                "sdp-id": "1",
+                "node-id": "Node-4",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group1"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac1",
+                      "ac-tp-id": "TenGigE0/0/0/10",
+                      "ac-ip-address": "172.16.2.1",
+                      "ac-ip-prefix-length": 29,
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [1422]
+                          }
+                        ]
+                      },
+                      "sdp-peering": {
+                        "protocol": [
+                          {
+                            "protocol-type": "ietf-network-slice-service:peering-protocol-bgp",
+                            "cisco-network-slice-service:bgp-attributes": {
+                              "neighbor": ["172.16.2.2"],
+                              "remote-as": 65102
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "sdp-id": "2",
+                "node-id": "Node-5",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group1"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac2",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-ip-address": "172.16.1.1",
+                      "ac-ip-prefix-length": 29,
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [1322]
+                          }
+                        ]
+                      },
+                      "sdp-peering": {
+                        "protocol": [
+                          {
+                            "protocol-type": "ietf-network-slice-service:peering-protocol-bgp",
+                            "cisco-network-slice-service:bgp-attributes": {
+                              "neighbor": ["172.16.1.2"],
+                              "remote-as": 65101
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "sdp-id": "3",
+                "node-id": "Node-2",
+                "service-match-criteria": {
+                  "match-criterion": [
+                    {
+                      "index": 1,
+                      "target-connection-group-id": "group1"
+                    }
+                  ]
+                },
+                "attachment-circuits": {
+                  "attachment-circuit": [
+                    {
+                      "ac-id": "ac3",
+                      "ac-tp-id": "TenGigE0/0/0/2",
+                      "ac-ip-address": "172.16.3.1",
+                      "ac-ip-prefix-length": 29,
+                      "ac-tags": {
+                        "ac-tags": [
+                          {
+                            "ac-tag-type": "ietf-network-slice-service:attachment-circuit-tag-vlan-id",
+                            "value": [1622]
+                          }
+                        ]
+                      },
+                      "sdp-peering": {
+                        "protocol": [
+                          {
+                            "protocol-type": "ietf-network-slice-service:peering-protocol-bgp",
+                            "cisco-network-slice-service:bgp-attributes": {
+                              "neighbor": ["172.16.3.2"],
+                              "remote-as": 65103
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "connection-groups": {
+            "connection-group": [
+              {
+                "connection-group-id": "group1",
+                "connectivity-type": "ietf-vpn-common:any-to-any"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

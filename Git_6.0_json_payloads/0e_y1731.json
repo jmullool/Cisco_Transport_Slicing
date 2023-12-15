@@ -1,0 +1,44 @@
+{
+  "data": {
+    "ietf-l2vpn-ntw:l2vpn-ntw": {
+      "cisco-l2vpn-ntw:y-1731-profile": [
+        {
+          "name": "Profile-Delay-1",
+          "schedule": {
+            "interval": 5,
+            "duration": 5
+          },
+          "type": "delay",
+          "probe": {
+            "measurement-interval": 60
+          },
+          "delay-params": {
+            "statistic": [
+              {
+                "type": "delay-two-way"
+              },
+              {
+                "type": "jitter-two-way"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Profile-Loss-1",
+          "type": "loss",
+          "probe": {
+            "measurement-interval": 60,
+            "priority": 2
+          },
+          "loss-params": {
+            "statistic": [
+              {
+                "type": "loss-sd"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

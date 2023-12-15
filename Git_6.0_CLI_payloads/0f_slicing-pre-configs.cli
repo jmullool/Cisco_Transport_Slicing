@@ -1,0 +1,446 @@
+network-slice-services slo-sle-templates slo-sle-template URLLC
+ template-description    "Flex-Algo based Low latency Service"
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy URLLC
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template URLLC_PM
+ template-description         "Flex-Algo based Low latency Service with Performance Measurement Delay Probing"
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy      URLLC
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "25ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "25ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "25ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile 1wayDelaySvc
+ service-assurance performance-measurement sr-te delay-measurement profile 1wayDelay
+!
+network-slice-services slo-sle-templates slo-sle-template URLLC_PM_NoFA
+ template-description         "Non-Flex-Algo based Low latency Service with Performance Measurement Delay Probing"
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy      URLLC_NoFA
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "25ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "25ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "25ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile 1wayDelaySvc
+ service-assurance performance-measurement sr-te delay-measurement profile 1wayDelay
+!
+network-slice-services slo-sle-templates slo-sle-template eMBB
+ template-description    "High Bandwidth Service with basic SLA monitoring"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy eMBB
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template eMBB_PM
+ template-description         "High Bandwidth Service with Advanced Performance Measurement liveness Probing"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy      eMBB
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Gold_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM system"
+ service-assurance heuristics L2 multipoint profile-name "Gold_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP system"
+ service-assurance heuristics L3 profile-name "Gold_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile livenessSvc
+ service-assurance performance-measurement sr-te liveness-detection profile livenessTest
+!
+network-slice-services slo-sle-templates slo-sle-template BWOD_1G
+ template-description         "BW on Demand with 1Gbps BW selection"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy      BWOD_1G
+ odn forwarding-plane-policy-type as-blueprint
+ custom
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template BWOD_500M
+ template-description         "BW on Demand with 500Mbps BW selection"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy      BWOD_500M
+ odn forwarding-plane-policy-type as-blueprint
+ custom
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template BWOD_custom
+ template-description         "BW on Demand with Custom BW selection"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy      BWOD_custom
+ odn forwarding-plane-policy-type as-blueprint
+ custom
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template DSCP_Flow
+ template-description    "For L3 Slices: DSCP Flow Based Path Forwarding Selection DSCP EF --> URLLC, other-->eMBB"
+ qos-policy L3 input-policy per-flow-test
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy DSCP_Flow
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L3 profile-name "Gold_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM system"
+!
+network-slice-services slo-sle-templates slo-sle-template Delay_10ms
+ template-description    "Highest BW under 10ms delay"
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy eMBB_10ms
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "10ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "10ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "10ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template Delay_7ms
+ template-description    "Highest BW under 7ms delay"
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy eMBB_7ms
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "07ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template Disjoint_North
+ template-description    "High Bandwidth Disjoint North Service with basic SLA monitoring"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy Disjoint_North
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template Disjoint_South
+ template-description    "High Bandwidth Disjoint South Service with basic SLA monitoring"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy Disjoint_South
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template ENCRYPT
+ template-description    "Encrypted path only High Bandwidth Service"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ odn forwarding-plane-policy ENCRYPT
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template Gold
+ template-description "High Priority Services with SLAs"
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Gold_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM system"
+ service-assurance heuristics L2 multipoint profile-name "Gold_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP system"
+ service-assurance heuristics L3 profile-name "Gold_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template Silver
+ template-description "Medium Priority Services with limited SLAs"
+ qos-policy L2 input-policy ingress_COS1
+ qos-policy L2 output-policy Egress-High_Bw_Apps
+ qos-policy L3 input-policy ingress_COS1
+ qos-policy L3 output-policy Egress-High_Bw_Apps
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM-Basic system"
+ service-assurance heuristics L2 multipoint profile-name "Silver_L2VPN_ConfigProfile system"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP-Basic system"
+ service-assurance heuristics L3 profile-name "Silver_L3VPN_ConfigProfile system"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM-Basic system"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+!
+network-slice-services slo-sle-templates slo-sle-template URLLC_nonDisjoint
+ template-description "Low latency service with 7ms SLO with SR-PM "
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy  Delay_70
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "07ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile 1wayDelaySvc
+ service-assurance performance-measurement sr-te delay-measurement profile 1wayDelay
+!
+network-slice-services slo-sle-templates slo-sle-template URLLC_Disjoint
+ template-description "Low latency service with Disjoint Paths and 7ms SLO with SR-PM "
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy Delay_Disjoint_72
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "07ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile 1wayDelaySvc
+ service-assurance performance-measurement sr-te delay-measurement profile 1wayDelay
+!
+network-slice-services slo-sle-templates slo-sle-template URLLC_Disjoint_North
+ template-description "Low latency service with Disjoint Paths and 7ms SLO with SR-PM "
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy  Delay_North_73
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "07ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile 1wayDelaySvc
+ service-assurance performance-measurement sr-te delay-measurement profile 1wayDelay
+!
+network-slice-services slo-sle-templates slo-sle-template URLLC_Disjoint_South
+ template-description "Low latency service with 7ms SLO with SR-PM "
+ qos-policy L2 input-policy ingress_COS5
+ qos-policy L2 output-policy Egress-LowLatency
+ qos-policy L3 input-policy ingress_COS5
+ qos-policy L3 output-policy Egress-LowLatency
+ odn forwarding-plane-policy  Delay_South_74
+ odn forwarding-plane-policy-type as-blueprint
+ service-assurance heuristics monitoring-state enable
+ service-assurance heuristics L2 point-to-point profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 point-to-point rule-name "Rule-L2VPN-NM custom"
+ service-assurance heuristics L2 multipoint profile-name "07ms_L2VPN_ConfigProfile custom"
+ service-assurance heuristics L2 multipoint rule-name "Rule-L2VPN-MP custom"
+ service-assurance heuristics L3 profile-name "07ms_L3VPN_ConfigProfile custom"
+ service-assurance heuristics L3 rule-name "Rule-L3VPN-NM custom"
+ service-assurance ethernet-service-oam md-name foo
+ service-assurance ethernet-service-oam md-level 4
+ service-assurance ethernet-service-oam y-1731 id-type icc-based
+ service-assurance ethernet-service-oam y-1731 message-period 1s
+ service-assurance ethernet-service-oam y-1731 profile-delay Profile-Delay-1
+ service-assurance performance-measurement sr-te pm-svc-profile 1wayDelaySvc
+ service-assurance performance-measurement sr-te delay-measurement profile 1wayDelay
+!
+network-slice-services slo-sle-templates qos-catalog L2 output-qos-policy Egress-High_Bw_Apps
+ description "High BW egress"
+!
+network-slice-services slo-sle-templates qos-catalog L2 output-qos-policy Egress-LowLatency
+ description "Low Latency priority egress"
+!
+network-slice-services slo-sle-templates qos-catalog L2 input-qos-policy ingress_COS1
+ description "Treat all as Business_Data"
+!
+network-slice-services slo-sle-templates qos-catalog L2 input-qos-policy ingress_COS3
+ description "Treat all as Video Data"
+!
+network-slice-services slo-sle-templates qos-catalog L2 input-qos-policy ingress_COS5
+ description "Treat all as Priority Data"
+!
+network-slice-services slo-sle-templates qos-catalog L2 input-qos-policy ingress_TRUST_L2
+ description "Trust COS markings from CE"
+!
+network-slice-services slo-sle-templates qos-catalog L2 input-qos-policy ingress_UNTRUST
+ description "Do Not Trust COS  markings from CE"
+!
+network-slice-services slo-sle-templates qos-catalog L3 output-qos-policy Egress-High_Bw_Apps
+ description "High BW egress"
+!
+network-slice-services slo-sle-templates qos-catalog L3 output-qos-policy Egress-LowLatency
+ description "Low Latency priority egress"
+!
+network-slice-services slo-sle-templates qos-catalog L3 input-qos-policy ingress_COS1
+ description "Business Data"
+!
+network-slice-services slo-sle-templates qos-catalog L3 input-qos-policy ingress_COS3
+ description Video
+!
+network-slice-services slo-sle-templates qos-catalog L3 input-qos-policy ingress_COS5
+ description "High Priority/Low Latency"
+!
+network-slice-services slo-sle-templates qos-catalog L3 input-qos-policy ingress_TRUST
+ description "Trust DSCP markings from CE"
+!
+network-slice-services slo-sle-templates qos-catalog L3 input-qos-policy ingress_UNTRUST
+ description "Do Not Trust DSCP markings from CE"
+!
+network-slice-services slo-sle-templates qos-catalog L3 input-qos-policy per-flow-test
+ description "DSCP based per-flow path selection testing"
+!
+network-slice-services cfp-configurations color-pool-name sr-color-pool
+network-slice-services global-settings parent-rr-route-policy SET_COLOR_EVPN_VPWS
+!
