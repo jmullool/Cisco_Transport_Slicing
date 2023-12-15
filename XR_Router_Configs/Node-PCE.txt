@@ -1,0 +1,120 @@
+!! Building configuration
+!! IOS XR Configuration 7.11.1.35I
+!! Last configuration change at Mon Sep 25 03:02:50 2023 by admin
+!
+hostname PCE
+domain name-server 161.44.124.122
+domain name-server 8.8.8.8
+username admin
+ group root-lr
+ group cisco-support
+ secret 10 $6$/sn5Tywl5Tw/T...$9KEDRk8zzRyAmU9V2iFsyvrJF8oejJyrNKG9ybOIRMfJeDTtimgnJmPx.L7B8LpQ08qvZaJml9dukRribvVk30
+!
+aaa authentication login LOCAL local
+grpc
+ port 57400
+ no-tls
+ address-family ipv4
+!
+vrf MGMT
+!
+line template vty
+ login authentication LOCAL
+ transport input all
+ transport output all
+!
+line default
+ login authentication LOCAL
+ transport input all
+ transport output all
+!
+http client source-interface ipv4 MgmtEth0/RP0/CPU0/0
+ntp
+ server 198.18.128.1
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+netconf-yang agent
+ ssh
+!
+ipv4 access-list host-only
+ 10 permit ipv4 any host 10.87.9.177
+!
+interface Loopback0
+ ipv4 address 192.168.255.7 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.87.9.177 255.255.255.0
+ ipv4 unreachables disable
+ ipv4 access-group host-only ingress
+!
+interface GigabitEthernet0/0/0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/1
+ shutdown
+!
+interface GigabitEthernet0/0/0/2
+ shutdown
+!
+interface GigabitEthernet0/0/0/3
+ shutdown
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/5
+ description Connected to XRv-R3 Gig0/0/0/x
+ ipv4 address 10.3.7.7 255.255.255.0
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.87.9.1
+  192.168.255.0/24 10.3.7.3
+ !
+ vrf MGMT
+  address-family ipv4 unicast
+   0.0.0.0/0 10.87.9.1
+  !
+ !
+!
+router bgp 64001
+ bgp router-id 192.168.255.7
+ address-family ipv4 unicast
+ !
+ address-family link-state link-state
+ !
+ neighbor 192.168.255.3
+  remote-as 64001
+  update-source Loopback0
+  address-family link-state link-state
+  !
+ !
+!
+segment-routing
+!
+pce
+ address ipv4 192.168.255.7
+ api
+  user admin
+   password encrypted 05080F1C22431F5B4A
+  !
+ !
+!
+netconf agent tty
+!
+ssh server rate-limit 600
+ssh server session-limit 110
+ssh server v2
+ssh server netconf vrf default
+crypto ca trustpoint Trustpool
+ crl optional
+!
+end

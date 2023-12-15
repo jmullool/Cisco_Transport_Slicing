@@ -1,0 +1,240 @@
+!! IOS XR Configuration 7.7.2
+!! Last configuration change at Sat Nov 18 14:48:43 2023 by admin
+!
+hostname Node-6
+logging trap informational
+logging events level informational
+logging format rfc5424
+logging console disable
+logging buffered 10000000
+logging 10.87.9.216 vrf default port 9514
+logging 10.87.9.245 vrf default port 9514
+logging source-interface MgmtEth0/RP0/CPU0/0
+logging hostnameprefix Node-6
+domain name-server 198.18.128.1
+username admin
+ group root-lr
+ group cisco-support
+ secret 10 $6$nhgBS/9PXLqs3S/.$baicwvYWSJN84GAZu8LrvujXlm8F2BuRXFW3S0sV7DI9MlQ3gQZw9NeNLMxb/1R2snvFTBxZ6umodwH7COsG3.
+!
+aaa authentication login LOCAL local
+grpc
+ port 57400
+ no-tls
+ max-streams 128
+ max-streams-per-user 128
+ address-family ipv4
+!
+telemetry model-driven
+!
+line template vty
+ login authentication LOCAL
+ transport input all
+ transport output all
+!
+line default
+ login authentication LOCAL
+ transport input all
+ transport output all
+!
+vty-pool default 0 20
+http client source-interface ipv4 MgmtEth0/RP0/CPU0/0
+snmp-server ifindex persist
+snmp-server host 10.87.9.216 traps version 2c cisco udp-port 1062
+snmp-server host 10.87.9.217 traps version 2c cisco udp-port 1062
+snmp-server host 10.87.9.245 traps version 2c cisco udp-port 1062
+snmp-server community public RW
+snmp-server community cisco123 RW
+snmp-server traps snmp linkup
+snmp-server traps snmp linkdown
+snmp-server packetsize 4096
+snmp-server trap-source MgmtEth0/RP0/CPU0/0
+ntp
+ server 198.18.128.1
+!
+call-home
+ service active
+ contact smart-licensing
+ profile CiscoTAC-1
+  active
+  destination transport-method email disable
+  destination transport-method http
+ !
+!
+netconf-yang agent
+ ssh
+!
+ipv4 access-list host-only
+ 10 permit ipv4 any host 10.87.9.176
+!
+interface Loopback0
+ ipv4 address 192.168.255.6 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.87.9.176 255.255.255.0
+ ipv4 unreachables disable
+ ipv4 access-group host-only ingress
+!
+interface GigabitEthernet0/0/0/0
+ description Connected to Node-2 Gig0/0/0/5 (via L2 switch R1L3)
+ ipv4 address 10.6.23.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ description Connected to ASR9K NY GigabitEthernet0/0/0/4
+ ipv4 address 10.6.22.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ description Connected to External2 Gig0/0/0/x 
+!
+interface GigabitEthernet0/0/0/3
+ description Connected to Node-3 Gig0/0/0/3
+ ipv4 address 10.4.6.2 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ description Connected to Node-7 GigabitEthernet0/0/0/4
+ ipv4 address 10.3.6.2 255.255.255.0
+!
+router static
+ address-family ipv4 unicast
+  0.0.0.0/0 10.87.9.1
+ !
+!
+router isis SPNAC
+ is-type level-2-only
+ net 47.0000.0000.0006.00
+ distribute link-state
+ nsf ietf
+ log adjacency changes
+ lsp-gen-interval initial-wait 1 secondary-wait 50 maximum-wait 5000
+ lsp-refresh-interval 65000
+ max-lsp-lifetime 65535
+ affinity-map North bit-position 1
+ affinity-map ENCRYPT bit-position 0
+ flex-algo 128
+  metric-type delay
+  advertise-definition
+ !
+ flex-algo 129
+  advertise-definition
+  affinity include-all ENCRYPT
+ !
+ flex-algo 131
+  advertise-definition
+  affinity include-all North
+ !
+ address-family ipv4 unicast
+  metric-style wide
+  metric 10000
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  spf-interval initial-wait 1 secondary-wait 50 maximum-wait 1000
+  segment-routing mpls sr-prefer
+ !
+ interface Loopback0
+  passive
+  circuit-type level-2-only
+  address-family ipv4 unicast
+   prefix-sid index 106
+   prefix-sid algorithm 128 absolute 16806
+   prefix-sid algorithm 129 absolute 16906
+   prefix-sid algorithm 131 absolute 17106
+  !
+ !
+ interface GigabitEthernet0/0/0/0
+  suppressed
+  circuit-type level-2-only
+  affinity flex-algo North ENCRYPT
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+ interface GigabitEthernet0/0/0/1
+  suppressed
+  circuit-type level-2-only
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+ interface GigabitEthernet0/0/0/3
+  suppressed
+  circuit-type level-2-only
+  affinity flex-algo North ENCRYPT
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+ interface GigabitEthernet0/0/0/4
+  suppressed
+  circuit-type level-2-only
+  priority 100 level 2
+  point-to-point
+  hello-interval 5
+  address-family ipv4 unicast
+   metric 10000
+  !
+ !
+!
+router bgp 64001
+ bgp router-id 192.168.255.6
+ address-family vpnv4 unicast
+ !
+ neighbor 192.168.255.8
+  remote-as 64001
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+ !
+!
+mpls oam
+!
+segment-routing
+ traffic-eng
+  maximum-sid-depth 5
+  pcc
+   source-address ipv4 192.168.255.6
+   pce address ipv4 192.168.255.7
+   !
+   report-all
+  !
+ !
+!
+netconf agent tty
+!
+crypto ca trustpoint Trustpool
+ crl optional
+!
+ssh server rate-limit 600
+ssh server session-limit 110
+ssh server v2
+performance-measurement
+ interface GigabitEthernet0/0/0/0
+  delay-measurement
+   advertise-delay 100
+  !
+ !
+ interface GigabitEthernet0/0/0/1
+  delay-measurement
+   advertise-delay 100
+  !
+ !
+ interface GigabitEthernet0/0/0/3
+  delay-measurement
+   advertise-delay 100
+  !
+ !
+ interface GigabitEthernet0/0/0/4
+  delay-measurement
+   advertise-delay 100
+  !
+ !
+!
+end
