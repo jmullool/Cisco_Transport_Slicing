@@ -15,7 +15,7 @@ It is also assumed if using the input and output QoS options in the Slicing Cata
 
 ## NSO Prerequisites
 
-It is assumed you have a working NSO 6.1 System with the latest T-SDN CFP loaded. Additionally, you optionally can have a CNC5.0 system installed which 
+It is assumed you have a working NSO 6.1 System with the latest T-SDN CFP loaded. Additionally, you optionally can have a CNC6.0 system installed which 
 includes NSO 6.1 and the required T-SDN CFPs.
 
 
