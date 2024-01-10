@@ -2,7 +2,7 @@
 
 This is a repo of sample payloads and usage for deploying Cisco's Transport Slicing Solution with Cisco's Network COntroller (CNC) which includes Cisco's Network Services Orchestrator (NSO).
 The Slicing YANG model is based off of an early version of the IETF work specified here: 
-https://datatracker.ietf.org/doc/html/draft-ietf-teas-ietf-network-slice-nbi-yang-03
+https://datatracker.ietf.org/doc/html/draft-ietf-teas-ietf-network-slice-nbi-yang-02
 
 Longer term and once the IETF YANG model goes to WGLC and is standardized, it will be updated to the latest version for compatibility. Cisco has augmented the model to support additional optional parameters. 
 
