@@ -13,19 +13,28 @@ The network is running SR-MPLS, MP-BGP, ISIS and has both PCE and RR components.
 
 It is also assumed if using the input and output QoS options in the Slicing Catalog that the appropriate QoS policy maps have been pre-positioned on the devices.
 
-## NSO Prerequisites
+## Installation
 
-It is assumed you have a working NSO 6.1 System with the latest T-SDN CFP loaded. Additionally, you optionally can have a CNC6.0 system installed which 
-includes NSO 6.1 and the required T-SDN CFPs.
+### NSO and/or CNC Prerequisites 
+
+It is assumed you have a licensed and working NSO 6.1 System with the latest T-SDN CFP loaded. Additionally, you optionally can have a licensed CNC6.0 system installed which 
+includes NSO 6.1 and the required T-SDN CFPs. Please see cisco.com for detailed instructions.
+
+NSO Documentation, Installation and Software:
+https://software.cisco.com/download/home/286331402/type
+
+CNC 6.0 Docuementation, Installation and Software:
+https://software.cisco.com/download/home/286326174/type/286326550/release/6.0.0
 
 
-## Verifying the NSO T-SDN and Slicing packages
+### Verifying the NSO T-SDN and Slicing packages
 
 Please follow all Release Notes to install and load bootstab files.
 
 ```
 
 admin@ncs# show packages package oper-status up      
+
 NAME                          UP  
 ----------------------------------
 cisco-L2vpn-fp-internal       X   
@@ -33,6 +42,7 @@ cisco-L3vpn-fp-internal       X
 cisco-aa-service-assurance    X   
 cisco-cfp-jwt-auth            X   
 cisco-cs-sr-te-cfp            X   
+cisco-ios-cli-6.100           X   
 cisco-ios-cli-6.86            X   
 cisco-iosxr-cli-7.46          X   
 cisco-iosxr-cli-7.52          X   
@@ -59,10 +69,9 @@ l3vpn-multi-vendors           X
 lsa-utils                     X   
 pm-multi-vendors              X   
 resource-manager              X   
-rest-api-explorer             X   
 rsvp-te-multi-vendors         X   
 sr-te-multi-vendors           X   
-tm-tc-multi-vendors           X   
+tm-tc-multi-vendors           X
 
 ```
 
@@ -82,7 +91,16 @@ These files accomplish the following:
 0f_slicing-pre-configs.cli- pre-load Slicing template catalog
 ```
 
-#### Sample Payloads with use-cases
+## Usage
+
+Once your NSO and/or CNC system is ready, you can try and load any of the sample use case payloads provided. The use-cases are decribed below where the first letter in
+the file name identifies the use-case. 
+
+To load the CLI payloads, go to the NSO CLI, enter config mode and do a "load merge <file_name.cli>
+To load the JSON payloads, either download the provided Postman collection or copy the desired JSON payload file into your tool (Postman, etc).
+The JSON payloads can also be loaded via NSO CLI using the load merge command "load merge file.name.json".
+
+### Sample Payloads with use-cases
 
 The following test use-case payload are available. Several of these use-cases will require additional prerequisites which are called out in separate read me files.
 
@@ -134,6 +152,8 @@ t- rework of CNC example from docuementaiton but using slicing services. Intent 
 
 
 ```
+
+## Reference Topology
 
 <img src="Picture1.png" alt="Test Topology">
 
