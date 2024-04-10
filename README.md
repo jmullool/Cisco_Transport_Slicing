@@ -153,6 +153,16 @@ t- rework of CNC example from docuementaiton but using slicing services. Intent 
 
 ```
 
+### Cisco Transport Slicing Design Guide
+
+https://github.com/jmullool/Cisco_Transport_Slicing/blob/master/Cisco_Transport_Slice_Automation_Design_Guide-Public.pdf
+
+### Cisco Transport Slicing Postman Collection
+
+https://github.com/jmullool/Cisco_Transport_Slicing/blob/master/PostmanCollection/CNC-6.0-NB-Transport-Slicing-Iselin-Lab.postman_collection.json
+
+
+
 ## Reference Topology
 
 <img src="Picture1.png" alt="Test Topology">
